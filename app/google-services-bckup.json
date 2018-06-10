@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1033239279642",
+    "firebase_url": "https://guestlist-54f7a.firebaseio.com",
+    "project_id": "guestlist-54f7a",
+    "storage_bucket": "guestlist-54f7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033239279642:android:2d08b53990b26309",
+        "android_client_info": {
+          "package_name": "com.application.club.guestlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033239279642-v9r4n4c04h2jpkqm7si7qqvne99le2qi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhRka1Somk2KB_hUNxU7M9XhecKpq_xDU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

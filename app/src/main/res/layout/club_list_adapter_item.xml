@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/llc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/clubMainImage"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:contentDescription="@string/imgdesc"
+            android:scaleType="fitXY"
+            android:src="@drawable/club"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/ll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llc"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <!--ImageView
+                android:id="@+id/couple"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:src="@drawable/couple" />
+
+
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"
+                android:paddingLeft="5dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="400"
+                android:textColor="#fafafa"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"></Space-->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                android:id="@+id/clubMainName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/title"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:textColor="#fafafa"
+                android:textSize="17sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#48baea"/>
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:adjustViewBounds="true"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:textColor="#dc5d5d"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"></Space>
+
+            <ImageView
+                android:id="@+id/navi"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_toRightOf="@id/clubMainName"
+                android:adjustViewBounds="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:src="@drawable/navigation" />
+
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

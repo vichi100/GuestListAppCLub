@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#2b292a"
+    android:fillViewport="true">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#535252"
+        android:layout_margin="20dp"
+        android:divider="#2b292a"
+        android:dividerHeight="15dp">
+
+    </ListView>
+    <LinearLayout android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        >
+
+        <TextView
+            android:text="No Passes to show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:gravity="center">
+        </TextView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

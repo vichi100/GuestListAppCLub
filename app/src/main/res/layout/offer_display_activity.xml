@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+
+
+    <ImageView
+        android:id="@+id/mainImage"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/clubmainimage" />
+
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/mainImage"
+        android:background="#000000">
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:layout_margin="10dp"
+            android:text="Day"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:layout_margin="10dp"
+            android:text="Date"
+            android:gravity="right"
+            android:textColor="#8f8e8e"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll"
+        android:background="#2d2b2b">
+
+        <LinearLayout
+            android:id="@+id/eventDetails"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
+
+
+            <TextView
+                android:id="@+id/club"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:text="Club"
+                android:textColor="#efa84a"
+                />
+
+            <TextView
+                android:id="@+id/dj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:text="DJ"
+                android:textColor="#dc5d5d"
+                />
+            <TextView
+                android:id="@+id/musicx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14sp"
+                android:textColor="#5d90dc"
+                android:text="Music"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/passdiscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14sp"
+                android:textColor="#65dc5d"
+                android:text="Pass"
+                android:visibility="invisible"
+                android:layout_margin="10dp"/>
+
+            <TextView
+                android:id="@+id/tablediscount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14sp"
+                android:textColor="#65dc5d"
+                android:text="Table"
+                android:visibility="invisible"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/eventDetails"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/guestList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/textview_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_weight=".3"
+                android:text="GUEST LIST"
+                android:gravity="center"
+                android:textColor="@color/md_white_1000"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/textview_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_weight=".3"
+                android:text="PASS"
+                android:gravity="center"
+                android:textColor="@color/md_white_1000"
+                android:textSize="14sp" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/table"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/pass"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/textview_border"
+                android:paddingLeft="10dp"
+                android:layout_weight=".3"
+                android:paddingRight="10dp"
+                android:text="TABLE"
+                android:textColor="@color/md_white_1000"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

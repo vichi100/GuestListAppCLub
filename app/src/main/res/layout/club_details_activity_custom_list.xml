@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rlLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <!--<LinearLayout-->
+        <!--android:id="@+id/lx"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--&gt;-->
+
+    <!--<ImageView-->
+        <!--android:id="@+id/mainImage"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:src="@drawable/club" />-->
+    <!--</LinearLayout>-->
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/lx"
+        android:layout_marginTop="45dp"
+        >
+
+    <ListView
+        android:id="@+id/lvUsers"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@null">
+
+    </ListView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

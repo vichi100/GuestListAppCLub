@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "398172654591",
+    "firebase_url": "https://guestlistandroid.firebaseio.com",
+    "project_id": "guestlistandroid",
+    "storage_bucket": "guestlistandroid.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398172654591:android:2d08b53990b26309",
+        "android_client_info": {
+          "package_name": "com.application.club.guestlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398172654591-fe833e5ravs3nuhgjp8fnqr6pcqoal78.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAvPhHhFlKx1eu_PWRFmNm1pRl7LqTNh8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

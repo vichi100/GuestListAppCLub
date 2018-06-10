@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:background="#000000">
+
+        <TextView
+            android:id="@+id/day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/ivUserIcon"
+            android:layout_toRightOf="@+id/ivUserIcon"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:layout_margin="10dp"
+            android:text="Sarah"
+            android:textColor="#ffffff"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/ivUserIcon"
+            android:layout_toRightOf="@+id/ivUserIcon"
+            android:paddingLeft="10dp"
+            android:paddingRight="6dp"
+            android:layout_margin="10dp"
+            android:text="Sarah"
+            android:gravity="right"
+            android:textColor="#8f8e8e"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll"
+        android:background="#2d2b2b">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ivUserIcon"
+            android:layout_alignTop="@+id/ivUserIcon"
+            android:orientation="vertical"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/dj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:text="DJ"
+                android:textColor="#dc5d5d"
+                />
+            <TextView
+                android:id="@+id/musicx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="14sp"
+                android:textColor="#5d90dc"
+                android:text="Music"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:id="@+id/detail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ivUserIcon"
+            android:layout_alignBottom="@+id/ivUserIcon"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/guestList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/ivUserIcon"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/textview_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="GUESTLIST"
+                android:textColor="@color/md_white_1000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/guestList"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/textview_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="PASS"
+                android:textColor="@color/md_white_1000"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/guestList"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/textview_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="TABLE"
+                android:textColor="@color/md_white_1000"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivUserIcon"
+            android:layout_width="140dp"
+            android:layout_height="120dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/club" />
+    </RelativeLayout>
+
+</RelativeLayout>

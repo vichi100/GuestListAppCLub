@@ -1,0 +1,139 @@
+mysql> use club;
+Database changed
+mysql> CREATE TABLE clubdetails (clubid VARCHAR(50) NOT NULL , clubname VARCHAR(50), city VARCHAR(50), location VARCHAR(50),
+        address VARCHAR(200), imageURL VARCHAR(200), latlong VARCHAR(60), rating VARCHAR(5), PRIMARY KEY (clubid));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, latlong, rating)
+     VALUES
+    ('99999', 'True tramn Trunk','mumbai','juhu','near juhu thana','/images/beer/32-home_default.jpg', '19.115,72.8374' ,'4.3'),
+    ('100000' , 'Bombay Cocktail bar','mumbai','Andheri west','Near infinity','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100001', 'Glocal','mumbai','Andheri west','Near infinity','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100002','Barrel','mumbai','Andheri west','Near Audi show room','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100003','Cube','mumbai','Andheri west','Near Start bazzar','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100004','R-Adda','mumbai','Juhu','Near Novatel','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100005','Hoppi-Polla','mumbai','Khar','Near Novatel','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100006','Rasta','mumbai','Khar','Near Novatel','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3'),
+    ('100007','Khar-Social','mumbai','Khar','Near Novatel','/images/beer/32-home_default.jpg','19.115,72.8374' ,'4.3');
+Query OK, 9 rows affected (0.00 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from clubdetails;
++--------+---------------------+--------+--------------+---------------------+----------------------------------+----------------+--------+
+| clubid | clubname            | city   | location     | address             | imageURL                         | latlong        | rating |
++--------+---------------------+--------+--------------+---------------------+----------------------------------+----------------+--------+
+|      1 | True tramn Trunk    | mumbai | juhu         | near juhu thana     | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      2 | Bombay Cocktail bar | mumbai | Andheri west | Near infinity       | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      3 | Glocal              | mumbai | Andheri west | Near infinity       | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      4 | Barrel              | mumbai | Andheri west | Near Audi show room | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      5 | Cube                | mumbai | Andheri west | Near Start bazzar   | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      6 | R-Adda              | mumbai | Juhu         | Near Novatel        | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      7 | Hoppi-Polla         | mumbai | Khar         | Near Novatel        | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      8 | Rasta               | mumbai | Khar         | Near Novatel        | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
+|      9 | Khar-Social         | mumbai | Khar         | Near Novatel        | /images/beer/32-home_default.jpg | 19.115,72.8374 | 4.3    |
++--------+---------------------+--------+--------------+---------------------+----------------------------------+----------------+--------+
+9 rows in set (0.00 sec)
+
+
+mysql> CREATE TABLE ticketdetails (clubid int, clubname VARCHAR(50), type VARCHAR(50), size VARCHAR(3), category VARCHAR(20),
+    cost VARCHAR(10), details VARCHAR(200), Day VARCHAR(15), date VARCHAR(15), totaltickets VARCHAR(3),
+           availbletickets VARCHAR(3));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO ticketdetails ( clubid, clubname,type, size, category, cost, details, Day, date, totaltickets, availbletickets)
+     VALUES
+     ('99999' , 'True tramn Trunk','table', '5','all','9000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','table','7','all','13000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','table','10','all','18000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100000' ,'Bombay Cocktail bar','table','5', 'all','9000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100000', 'Bombay Cocktail bar','table','7','all','13000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100000','Bombay Cocktail bar','table','10','all','18000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100000','Bombay Cocktail bar','table','15','all','27000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100001','Glocal','table ','5','all','9000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100001','Glocal','table','7','all','13000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('100001','Glocal','table','10','all','18000','personal service','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','guest list','0','couple','0','','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','guest list','0','girl','0','','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','guest list','0','stag','0','','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','pass','0','couple','1500','','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','pass','0','girl', '500','','friday', '29/Oct/2017', '20', '10'),
+     ('99999' ,'True tramn Trunk','pass','0', 'stag', '1000','','friday', '29/Oct/2017', '20', '10');
+Query OK, 16 rows affected (0.00 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+mysql> select * from ticketdetails;
++--------+---------------------+------------+------+----------+-------+------------------+--------+-------------+--------------+-----------------+
+| clubid | clubname            | type       | size | category | cost  | details          | Day    | date        | totaltickets | availbletickets |
++--------+---------------------+------------+------+----------+-------+------------------+--------+-------------+--------------+-----------------+
+|  99999 | True tramn Trunk    | table      | 5    | all      | 9000  | personal service | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | table      | 7    | all      | 13000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | table      | 10   | all      | 18000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | Bombay Cocktail bar | table      | 5    | all      | 9000  | personal service | friday | 29/Oct/2017 | 20           | 10              |
+| 100000 | Bombay Cocktail bar | table      | 7    | all      | 13000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+| 100000 | Bombay Cocktail bar | table      | 10   | all      | 18000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+| 100000 | Bombay Cocktail bar | table      | 15   | all      | 27000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+| 100001 | Glocal              | table      | 5    | all      | 9000  | personal service | friday | 29/Oct/2017 | 20           | 10              |
+| 100001 | Glocal              | table      | 7    | all      | 13000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+| 100001 | Glocal              | table      | 10   | all      | 18000 | personal service | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | guest list | 0    | couple   | 0     |                  | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | guest list | 0    | girl     | 0     |                  | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | guest list | 0    | stag     | 0     |                  | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | pass       | 0    | couple   | 1500  |                  | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | pass       | 0    | girl     | 500   |                  | friday | 29/Oct/2017 | 20           | 10              |
+|  99999 | True tramn Trunk    | pass       | 0    | stag     | 1000  |                  | friday | 29/Oct/2017 | 20           | 10              |
++--------+---------------------+------------+------+----------+-------+------------------+--------+-------------+--------------+-----------------+
+16 rows in set (0.00 sec)
+
+mysql> CREATE TABLE eventdetails (clubname VARCHAR(50),
+    djname VARCHAR(50), music VARCHAR(200), date VARCHAR(200), imageURL VARCHAR(3));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO eventdetails ( clubid, clubname,djname, music, date, imageURL)
+     VALUES
+     ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/beer/32-home_default.jpg'),
+     ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/beer/32-home_default.jpg'),
+     ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/beer/32-home_default.jpg'),
+     ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/beer/32-home_default.jpg');
+ERROR 1054 (42S22): Unknown column 'clubid' in 'field list'
+mysql> drop table eventdetails;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE eventdetails (clubid VARCHAR(50), clubname VARCHAR(50),
+      djname VARCHAR(50), music VARCHAR(200), date VARCHAR(200), imageURL VARCHAR(500));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> INSERT INTO eventdetails ( clubid, clubname,djname, music, date, imageURL)
+     VALUES
+    ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/club/trumtramtrank/event.jpg'),
+    ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/club/trumtramtrank/event.jpg'),
+    ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/club/trumtramtrank/event.jpg'),
+    ('99999' ,'True tramn Trunk','cyrus','hip-hop/bollywood','29/Nov/2017','/images/club/trumtramtrank/event.jpg');
+Query OK, 4 rows affected, 4 warnings (0.00 sec)
+Records: 4  Duplicates: 0  Warnings: 4
+
+mysql> CREATE TABLE bookingdetails (cutomername VARCHAR(50), mobile VARCHAR(20), customerId VARCHAR(200),
+clubname VARCHAR(50), clubid VARCHAR(50),
+     QRnumber VARCHAR(200), tickettype VARCHAR(20), eventDate VARCHAR(30), cost VARCHAR(10), paidamount VARCHAR(10), remainingamount VARCHAR(10),
+     discount VARCHAR(3),ticketDetails VARCHAR(200), bookingdate VARCHAR(30), bookingtime VARCHAR(30));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql>  CREATE TABLE customer (cutomername VARCHAR(50),
+     mobile VARCHAR(20), customerId VARCHAR(200));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql>
+
+CREATE TABLE offers (clubid VARCHAR(50), clubname VARCHAR(50), eventdate VARCHAR(50),
+offerid VARCHAR(50), offername VARCHAR(200),offerfor VARCHAR(30), offervalue VARCHAR(50),
+ imageURL VARCHAR(500), starttime VARCHAR(300), timetoexpire VARCHAR(300), city VARCHAR(50));
+
+
+ INSERT INTO offers ( clubid, clubname , eventdate, offerid, offername, offerfor, offervalue, imageURL, starttime, timetoexpire, city)
+      VALUES
+     ('99999' ,'True tramn Trunk','29/Nov/2017','111', '30% Off', 'table', '30%', '/images/club/trumtramtrank/event.jpg','16/Mar/2018 02:59:00', '16/Mar/2018 23:59:00', 'mumbai'),
+     ('99999' ,'True tramn Trunk','29/Nov/2017','112', '40% off', 'pass', '40%', '/images/club/trumtramtrank/event.jpg','16/Mar/2018 02:59:00', '16/Mar/2018 23:59:00', 'mumbai'),
+     ('99999' ,'True tramn Trunk','29/Nov/2017','113', '50% off', 'pass', '50%' ,'/images/club/trumtramtrank/event.jpg','18/Mar/2018 23:59:00', '19/Mar/2018 23:59:00', 'mumbai'),
+     ('99999' ,'True tramn Trunk','29/Nov/2017','114', '20% off', 'table', '20%', '/images/club/trumtramtrank/event.jpg','19/Mar/2018 23:59:00', '29/Mar/2018 23:59:00', 'mumbai');
+
+
+

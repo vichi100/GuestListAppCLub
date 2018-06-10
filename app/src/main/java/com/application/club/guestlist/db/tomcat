@@ -1,0 +1,29 @@
+https://www.ntu.edu.sg/home/ehchua/programming/howto/MacUsers_HowTo.html
+https://dalanzg.github.io/tips-tutorials/mac/2015/11/21/how-to-install-tomcat-7-on-mac-os-x/
+
+https://www.androidhive.info/2012/10/android-push-notifications-using-google-cloud-messaging-gcm-php-and-mysql/
+
+Step 3: Start the Tomcat Server
+To start the Tomcat server, open a new "Terminal" (Go ⇒ Utilities ⇒ Terminal) and issue:
+
+$ cd /Applications/tomcat/bin
+$ ./catalina.sh run
+
+Check for the Tomcat server's TCP port number from the console messages. The default is 8080.
+To verify if the Tomcat server is started, start a browser (Safari) and issue URL http://localhost:8080, suppose that Tomcat is running on the default TCP port number of 8080.
+Also try URL http://localhost:8080/examples which shows the Servlet/JSP examples.
+
+Step 4: Shutdown the Tomcat Server
+To shutdown the Tomcat server, you can simply press control-c (NOT command-c) on the tomcat console, or issue command:
+
+$ cd /Applications/tomcat/bin
+$ ./shutdown.sh
+
+########## AMPPS #########
+
+start AMPPS sever: click on ampps icon and then put id-vichi and password- vichi123
+
+
+
+starttipsy.sh
+stoptipsy.sh

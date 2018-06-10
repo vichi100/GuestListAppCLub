@@ -1,0 +1,96 @@
+Merchant Details to test Paytm integration
+
+Sandbox Merchant ID
+vichii09596855246224
+App Url
+    https://play.google.com/store/apps/details?id=com.phoxity.foxity&hl=en
+Sandbox Merchant Key
+    RM62o!99vYYeIk@x
+Channel Id
+    WAP
+Industry Type
+    Retail
+Dashboard Login Details
+Merchant Panel Link
+https://pguat.paytm.com/PayTMSecured/app/auth/login
+User Name
+    vichiinc
+Password
+    M6n5Dz4
+
+------------- http server -------
+https://www.vultr.com/docs/how-to-install-apache-mysql-and-php-on-centos-6
+https://www.digitalocean.com/community/questions/how-to-install-mcrypt-php-extension-on-centos-7-0-x64 (imp install this)
+
+# install EPEL with yum
+yum -y install epel-release
+# install php-mcrypt
+yum -y install php-mcrypt
+
+
+
+--- start paytm server
+    service httpd restart
+--- check if server running
+http://198.167.140.169/paytm/
+http://199.180.133.121/paytm/
+
+
+http://199.180.133.121/paytm/
+
+
+
+
+/etc/httpd/conf/httpd.conf
+DocumentRoot "/var/www"
+
+
+http://198.167.140.40:3000/root/home/PaytmChecksum/index.js
+
+http://192.168.0.101:3000
+
+
+#### Privacy Polcy URL ####
+/var/www/privacy
+
+http://guestlistin.com/privacy/privacy.htm
+
+
+clubserver.jar  errors.txt  pid  service.out  startclubserver.sh  stopclubserver.sh  tipsy  tipsyToon.js
+[root@clubpass home]# pwd
+/root/home
+[root@clubpass home]#
+
+
+5 6 * * *  /root/home/startclubserver.sh
+
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/
+export JRE_HOME=/usr/java/jdk1.8.0_171-amd64/jre
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+export PATH
+
+---------------------------------
+
+/etc/php.d/fileinfo.ini,
+/etc/php.d/gd.ini,
+/etc/php.d/json.ini,
+/etc/php.d/mbstring.ini,
+/etc/php.d/mcrypt.ini,
+/etc/php.d/mysql.ini,
+/etc/php.d/mysqli.ini,
+/etc/php.d/pdo.ini,
+/etc/php.d/pdo_mysql.ini,
+/etc/php.d/pdo_sqlite.ini,
+/etc/php.d/phar.ini,
+/etc/php.d/sqlite3.ini,
+/etc/php.d/zip.ini
