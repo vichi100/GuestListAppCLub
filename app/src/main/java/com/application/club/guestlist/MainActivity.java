@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
     {
         //CREATE ITEMS
         AHBottomNavigationItem crimeItem=new AHBottomNavigationItem("Clubs",R.drawable.pub);
-        AHBottomNavigationItem passItem=new AHBottomNavigationItem("Pass",R.drawable.ticket3);
+        AHBottomNavigationItem passItem=new AHBottomNavigationItem("Passes",R.drawable.ticket3);
         AHBottomNavigationItem offer=new AHBottomNavigationItem("Offers",R.drawable.offer2);
 
         //AHBottomNavigationItem trending=new AHBottomNavigationItem("Trending",R.drawable.trending);

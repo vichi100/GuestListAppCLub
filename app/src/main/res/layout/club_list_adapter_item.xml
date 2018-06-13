@@ -16,7 +16,7 @@
             android:layout_height="250dp"
             android:contentDescription="@string/imgdesc"
             android:scaleType="fitXY"
-            android:src="@drawable/club"/>
+            />
     </LinearLayout>
 
     <RelativeLayout

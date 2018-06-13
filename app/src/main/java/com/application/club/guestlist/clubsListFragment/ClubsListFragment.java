@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -76,6 +77,8 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
+    private ProgressBar spinner;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -89,6 +92,8 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
 		super.onActivityCreated(savedInstanceState);
         //getActivity().getActionBar().setTitle("City");
+
+
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(2*60*1000);
@@ -311,11 +316,13 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
 
             }catch (Exception ex){
+                Toast.makeText(getActivity(), "No internet connection or too slow !!", Toast.LENGTH_LONG).show();
                 ex.printStackTrace();
 
             }
 
         }
+
 
 
         getClubList = true;

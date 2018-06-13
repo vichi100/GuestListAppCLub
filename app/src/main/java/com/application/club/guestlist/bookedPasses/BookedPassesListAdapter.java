@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.application.club.guestlist.R;
+import com.application.club.guestlist.utils.UtillMethods;
 
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class BookedPassesListAdapter extends BaseAdapter {
 		TextView eventDate = (TextView) convertView.findViewById(R.id.eventDate);
 		eventDate.setText(passRowItem.getEventDate());
 		TextView details = (TextView) convertView.findViewById(R.id.description);
-		details.setText(passRowItem.getTickettype());
+		details.setText(UtillMethods.toCamelCase(passRowItem.getTickettype()));
 		//TextView passDetails = (TextView) convertView.findViewById(R.id.passDetails);
 
 

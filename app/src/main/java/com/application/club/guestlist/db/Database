@@ -328,6 +328,9 @@ java -Dlog4j.configurationFile=conf\log4j2.xml -jar log4j2test1-1.0-SNAPSHOT.jar
 
 
 
+[self.view setBackgroundColor: RGB(35, 31, 32)];
+
+
 INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, latlong, rating)
      VALUES
     ('99999', 'True Tramm Trunk','mumbai','juhu','near juhu thana','/images/club/truetrammtrunk/truetrammtrunk.png', '19.115,72.8374' ,'4.3'),

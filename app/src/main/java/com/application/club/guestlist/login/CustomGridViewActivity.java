@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.application.club.guestlist.R;
+import com.squareup.picasso.Picasso;
 
 public class CustomGridViewActivity extends BaseAdapter {
 
@@ -51,8 +52,15 @@ public class CustomGridViewActivity extends BaseAdapter {
             TextView textViewAndroid = (TextView) gridViewAndroid.findViewById(R.id.android_gridview_text);
             ImageView imageViewAndroid = (ImageView) gridViewAndroid.findViewById(R.id.android_gridview_image);
             textViewAndroid.setText(gridViewString[i]);
-            imageViewAndroid.setImageResource(gridViewImageId[i]);
+            //imageViewAndroid.setImageResource(gridViewImageId[i]);
             imageViewAndroid.setEnabled(false);
+
+
+
+
+            Picasso.with(mContext).load(gridViewImageId[i])
+                    //.networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(imageViewAndroid);
             //imageViewAndroid.setBackgroundColor(Color.GREEN);
         } else {
             gridViewAndroid = (View) convertView;

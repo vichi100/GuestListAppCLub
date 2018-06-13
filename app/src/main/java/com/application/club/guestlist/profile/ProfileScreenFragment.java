@@ -19,7 +19,10 @@ import android.view.ViewGroup;
 import com.application.club.guestlist.R;
 import com.application.club.guestlist.login.AboutUsActivity;
 import com.application.club.guestlist.utils.Constants;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -44,6 +47,8 @@ public class ProfileScreenFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
+
+
         SharedPreferences settings = getActivity().getSharedPreferences(Constants.PREFS_NAME, 0);
         String custmerName = settings.getString("name","");
         custmerMobile = settings.getString("mobile","");
@@ -55,6 +60,12 @@ public class ProfileScreenFragment extends Fragment {
 
         TextView callustc = (TextView) getActivity().findViewById(R.id.call_us);
         TextView aboutusTv = (TextView) getActivity().findViewById(R.id.about_us);
+
+        ImageView imgIcon = (ImageView) getActivity().findViewById(R.id.header_cover_image);
+
+        Picasso.with(getActivity()).load(R.drawable.profilebackground)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(imgIcon);
 
 
         callustc.setOnClickListener(new View.OnClickListener() {

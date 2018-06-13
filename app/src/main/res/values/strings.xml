@@ -28,12 +28,7 @@
         <item>About Us</item>
     </string-array>
     <array name="icons">
-        <item>@drawable/club</item>
-        <item>@drawable/club</item>
-        <item>@drawable/club</item>
-        <item>@drawable/club</item>
-        <item>@drawable/club</item>
-        <item>@drawable/club</item>
+
         <item>@drawable/home</item>
         <item>@drawable/tutorials</item>
         <item>@drawable/app</item>

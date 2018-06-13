@@ -21,7 +21,7 @@
             android:layout_height="230sp"
             android:scaleType="fitXY"
             android:layout_alignParentTop="true"
-            android:src="@drawable/club" />
+             />
     </LinearLayout>
 
 
@@ -145,19 +145,14 @@
             android:gravity="center"
             android:paddingTop="10sp">
 
-            <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#dc5d5d"
-                android:text="Note: " />
 
             <TextView
 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#dc5d5d"
-                android:text="For stag entry please get PASS" />
+                android:text="For Stag Entry Please Get PASS" />
         </LinearLayout>
 
 

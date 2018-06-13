@@ -137,9 +137,9 @@ public class QRCodeActivity extends AppCompatActivity {
         if(bookingType.equalsIgnoreCase("guest list")){
             String selectedGuestType = intent.getStringExtra(Constants.SELECTED_GUEST_TYPE);
             if(selectedGuestType.equalsIgnoreCase("couple")){
-                entrytv.setText("One couple is allowed");
+                entrytv.setText("One Couple is Allowed");
             }else if(selectedGuestType.equalsIgnoreCase("girls")){
-                entrytv.setText("Max Three girls allowed");
+                entrytv.setText("Max Three Girls Allowed");
             }
 
             notetv.setText("Entry valid till 11 PM only, afer that club charge will be apply");
@@ -154,7 +154,7 @@ public class QRCodeActivity extends AppCompatActivity {
             String entry = "Table For "+size+ " with full cover of "+cost+" Rs";
             entrytv.setText(entry);
 
-            remainingAmtTv.setText(remainingAmt+"Rs need to pay at reception");
+            remainingAmtTv.setText(remainingAmt+"Rs Need to Pay At Club");
 
         }
 
