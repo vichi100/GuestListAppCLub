@@ -128,7 +128,7 @@ public class OffersFragment extends ListFragment implements AdapterView.OnItemCl
                     String imageURL = offerjObj.getString(Constants.IMAGE_URL);
                     String starttime = offerjObj.getString(Constants.STARTTIME);
                     String timetoexpire = offerjObj.getString(Constants.TIME_TO_EXPIRE);
-                    String remaingTime = UtillMethods.getRemaingTime(timetoexpire);
+                    String remaingTime = UtillMethods.getRemaingTime(starttime, timetoexpire);
 
                     offerItemRowObj.setClubid(clubid);
                     offerItemRowObj.setClubname(clubname);

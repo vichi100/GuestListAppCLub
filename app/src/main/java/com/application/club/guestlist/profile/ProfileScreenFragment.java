@@ -74,7 +74,7 @@ public class ProfileScreenFragment extends Fragment {
             public void onClick(View arg0) {
 
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel:91"+"9833097595"));
+                callIntent.setData(Uri.parse("tel:+91"+"9833097595"));
 
                 if (ContextCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.CALL_PHONE)

@@ -97,13 +97,13 @@ public class DisplayPassActivity extends AppCompatActivity {
             ticketDetailstv.setText(ticketDetails+" With FULL COVER of "+costAfterDiscount+"Rs");
         }else if(ticketType.equalsIgnoreCase("pass") ){
             TextView remainingAmttv = (TextView) findViewById(R.id.remainingamount);
-            remainingAmttv.setText("As FULL COVER of "+costAfterDiscount+"Rs is All Paid");
+            remainingAmttv.setText("As FULL COVER of Rs "+costAfterDiscount+" is All Paid");
 
         }
 
         if(!remainingAmt.equalsIgnoreCase("0")){
             TextView remainingAmttv = (TextView) findViewById(R.id.remainingamount);
-            remainingAmttv.setText(remainingAmt+" Rs Need To Pay At Club");
+            remainingAmttv.setText("Rs "+remainingAmt+" Need To Pay At Club");
         }
 
 

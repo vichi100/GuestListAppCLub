@@ -46,7 +46,7 @@ public class TableBookingListAdapter extends ArrayAdapter<TicketDetailsItem> {
 		clubNametv.setText(ticketDetailsItemObj.getClubname());
 
 		TextView descriptiontv = (TextView) convertView.findViewById(R.id.description);
-		descriptiontv.setText("Table for "+ticketDetailsItemObj.getSize());
+		descriptiontv.setText("Table For "+ticketDetailsItemObj.getSize());
 
 		TextView eventDatetv = (TextView) convertView.findViewById(R.id.eventDate);
 		eventDatetv.setText(ticketDetailsItemObj.getDate());

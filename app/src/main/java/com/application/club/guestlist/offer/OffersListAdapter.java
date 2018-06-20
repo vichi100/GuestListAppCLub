@@ -70,7 +70,7 @@ public class OffersListAdapter extends BaseAdapter {
         details.setText(offerRowItem.getOfferName());
 
         TextView endTimetv = (TextView) convertView.findViewById(R.id.endTime);
-        endTimetv.setText("End Time: "+offerRowItem.getTimetoexpire());
+        endTimetv.setText("Ending in "+offerRowItem.getTimetoexpire());
         //TextView passDetails = (TextView) convertView.findViewById(R.id.passDetails);
 
 

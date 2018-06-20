@@ -27,6 +27,8 @@ Current PIN
 0099
 
 
+godady email pw : meriMaa29071979#
+
 #### App store #####
 
 id : vichi
@@ -344,3 +346,58 @@ INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, la
     ('100007','Bombay Adda','mumbai','Santacruz','Near Novatel','/images/club/bombayadda/bombayadda.jpg','19.115,72.8374' ,'4.3'),
     ('100008','PlayBoy','mumbai','Worli','Near Novatel','/images/club/playboy/playboy.jpg','19.115,72.8374' ,'4.3'),
     ('100009','Kitty Su','mumbai','Andheri East','Near Novatel','/images/club/kittysu/kittysu.jpg','19.115,72.8374' ,'4.3');
+
+
+------------
+
+mysql> update eventdetails set date = '18/Jun/2018' where date='12/Jun/2018'
+    -> ;
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update eventdetails set date = '19/Jun/2018' where date='13/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update eventdetails set date = '20/Jun/2018' where date='14/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update eventdetails set date = '21/Jun/2018' where date='15/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update eventdetails set date = '22/Jun/2018' where date='16/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update eventdetails set date = '23/Jun/2018' where date='17/Jun/2018';
+Query OK, 11 rows affected (0.01 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+----
+
+mysql> update ticketdetails set date = '18/Jun/2018' where date='12/Jun/2018'
+    -> ;
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update ticketdetails set date = '19/Jun/2018' where date='13/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update ticketdetails set date = '20/Jun/2018' where date='14/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update ticketdetails set date = '21/Jun/2018' where date='15/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update ticketdetails set date = '22/Jun/2018' where date='16/Jun/2018';
+Query OK, 11 rows affected (0.00 sec)
+Rows matched: 11  Changed: 11  Warnings: 0
+
+mysql> update ticketdetails set date = '23/Jun/2018' where date='17/Jun/2018';
+Query OK, 11 rows affected (0.01 sec)
+Rows matched: 11  Changed: 11  Warnings: 0

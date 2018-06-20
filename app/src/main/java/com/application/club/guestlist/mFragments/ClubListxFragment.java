@@ -63,7 +63,7 @@ public class ClubListxFragment extends ListFragment implements SearchView.OnQuer
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search");
+        searchView.setQueryHint("Club Name or Location");
 
         super.onCreateOptionsMenu(menu, inflater);
 

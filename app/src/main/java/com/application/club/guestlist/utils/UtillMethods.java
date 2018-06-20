@@ -97,16 +97,20 @@ public class UtillMethods {
 
     }
 
-    public static String getRemaingTime(String endDateTimeStr){
+    public static String getRemaingTime(String startDateTimeStr, String endDateTimeStr){
         String remainingTime = "";
         SimpleDateFormat simpleDateFormat =
                 new SimpleDateFormat("dd/MMM/yyyy hh:mm:ss");
         try{
             Date endDateTime = simpleDateFormat.parse(endDateTimeStr);
-            String currentdateTimeStr = simpleDateFormat.format(new Date());
-            Date currentdateTime = simpleDateFormat.parse(currentdateTimeStr);
+
+            Date startDateTime = simpleDateFormat.parse(startDateTimeStr);
+
+
+//            String currentdateTimeStr = simpleDateFormat.format(new Date());
+//            Date currentdateTime = simpleDateFormat.parse(currentdateTimeStr);
             //milliseconds
-            long different = endDateTime.getTime() - currentdateTime.getTime();
+            long different = endDateTime.getTime() - startDateTime.getTime();
             long secondsInMilli = 1000;
             long minutesInMilli = secondsInMilli * 60;
             long hoursInMilli = minutesInMilli * 60;
@@ -125,10 +129,10 @@ public class UtillMethods {
 
 
             if(elapsedDays != 0){
-                remainingTime = elapsedDays+"D, "+elapsedHours+"H, "+elapsedMinutes+"M";
+                remainingTime = elapsedDays+"D:"+elapsedHours+"H:"+elapsedMinutes+"M";
             }else{
                 if(elapsedHours != 0){
-                    remainingTime = elapsedHours+"H, "+elapsedMinutes+"M";
+                    remainingTime = elapsedHours+"H:"+elapsedMinutes+"M";
                 }else{
                     if(elapsedMinutes != 0){
                         remainingTime = elapsedMinutes+"M";

@@ -83,14 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15dp"
-            android:layout_margin="15dp"
+            android:layout_margin="5dp"
             android:textColor="#dc5d5d" />
 
 
 
         <TextView
             android:id="@+id/note"
-            android:layout_marginTop="12sp"
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -101,7 +101,7 @@
 
         <TextView
             android:id="@+id/idcard"
-            android:layout_marginTop="20dp"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="We recommend to carry ID proof"

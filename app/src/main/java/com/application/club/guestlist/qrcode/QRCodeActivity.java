@@ -131,7 +131,7 @@ public class QRCodeActivity extends AppCompatActivity {
             entrytv.setText(entry);
 
 
-            notetv.setText("As FULL COVER "+totalCost+" Rs is all paid");
+            notetv.setText("As FULL COVER Rs"+totalCost+" is all paid");
         }
 
         if(bookingType.equalsIgnoreCase("guest list")){
@@ -142,7 +142,7 @@ public class QRCodeActivity extends AppCompatActivity {
                 entrytv.setText("Max Three Girls Allowed");
             }
 
-            notetv.setText("Entry valid till 11 PM only, afer that club charge will be apply");
+            notetv.setText("Entry after 11PM club charges will apply");
         }
 
         if(bookingType.equalsIgnoreCase("Table")){
@@ -151,10 +151,10 @@ public class QRCodeActivity extends AppCompatActivity {
             final String cost = intent.getStringExtra(Constants.COST);
             final String size = intent.getStringExtra(Constants.TABLE_SIZE);
             final String details = intent.getStringExtra(Constants.DETAILS);
-            String entry = "Table For "+size+ " with full cover of "+cost+" Rs";
+            String entry = "Table For "+size+ " with full cover of Rs"+cost;
             entrytv.setText(entry);
 
-            remainingAmtTv.setText(remainingAmt+"Rs Need to Pay At Club");
+            remainingAmtTv.setText("Rs "+remainingAmt+" Need to Pay At Club");
 
         }
 

@@ -281,9 +281,9 @@ public class BookPassActivity extends AppCompatActivity implements QuantityView.
                             @Override
                             public void run() {
                                 if(passDiscount != null && !passDiscount.equalsIgnoreCase("0")){
-                                    totalCosttv.setText(Integer.toString(totalCost)+" Rs FULL COVER AFTER "+passDiscount+"% DISCOUNT");
+                                    totalCosttv.setText("Rs "+Integer.toString(totalCost)+" FULL COVER AFTER "+passDiscount+"% DISCOUNT");
                                 }else {
-                                    totalCosttv.setText(Integer.toString(totalCost)+" Rs FULL COVER");
+                                    totalCosttv.setText("Rs "+Integer.toString(totalCost)+" FULL COVER");
                                 }
 
                             }

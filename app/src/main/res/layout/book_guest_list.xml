@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/md_white_1000"
                 android:buttonTint="@color/md_white_1000"
-                android:text="Only one couple"
+                android:text="Only One couple"
                 android:textSize="18sp" />
 
             <RadioButton

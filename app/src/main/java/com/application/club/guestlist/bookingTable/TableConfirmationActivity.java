@@ -63,10 +63,10 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
         int costInt = Integer.parseInt(cost);
         if(tableDiscount != null && !tableDiscount.equalsIgnoreCase("0")){
             costInt = costInt - (costInt * Integer.parseInt(tableDiscount)/100);
-            costtv.setText(costInt+" Rs FULL COVER AFETR "+tableDiscount+"% DISCOUNT");
+            costtv.setText("Rs "+costInt+" FULL COVER AFETR "+tableDiscount+"% DISCOUNT");
         }else{
             tableDiscount = "0";
-            costtv.setText(costInt+" Rs FULL COVER");
+            costtv.setText("Rs "+costInt+" FULL COVER");
         }
 
 
@@ -100,7 +100,7 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
         bookingAmttv.setText(Integer.toString(costInt));
         final int restAmount = fullAmount - costInt;
         TextView restRookingAmttv =  (TextView) findViewById(R.id.restBookingAmount);
-        restRookingAmttv.setText(restAmount +" Rs need to pay at club");
+        restRookingAmttv.setText("Rs "+restAmount +" need to pay at club");
 
 
 
@@ -124,7 +124,7 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
 
                 intent.putExtra(Constants.QRNUMBER, qrNumber);
 
-                String tableDetails = "Table for "+size;
+                String tableDetails = "Table For "+size;
 
                 try{
 

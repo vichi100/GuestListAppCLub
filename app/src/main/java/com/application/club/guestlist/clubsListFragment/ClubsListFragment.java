@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,12 +18,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ListFragment;
 import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.view.Menu;
@@ -77,13 +82,16 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
-    private ProgressBar spinner;
+    ProgressBar linlaHeaderProgress;
+
+    AlertDialog alert;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
         setHasOptionsMenu(true);
+
         return inflater.inflate(R.layout.list_fragment, null, false);
 	}
 
@@ -93,7 +101,17 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 		super.onActivityCreated(savedInstanceState);
         //getActivity().getActionBar().setTitle("City");
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Check Your Internet Connection!!!")
+                .setCancelable(false)
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //do things
+                    }
+                });
+        alert = builder.create();
 
+        linlaHeaderProgress = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(2*60*1000);
@@ -113,6 +131,16 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
 		menutitles = getResources().getStringArray(R.array.titles);
 		menuIcons = getResources().obtainTypedArray(R.array.icons);
+
+
+		Handler handler = new Handler();
+        FetchData fdTask = new FetchData();
+        fdTask.execute();
+
+        TaskCanceler taskCanceler = new TaskCanceler(fdTask);
+
+        handler.postDelayed(taskCanceler, 60*1000);
+        getListView().setOnItemClickListener(this);
 
 
 	}
@@ -184,9 +212,9 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
 
 
-        adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
-        setListAdapter(adapter);
-        getListView().setOnItemClickListener(this);
+//        adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
+//        setListAdapter(adapter);
+//        getListView().setOnItemClickListener(this);
     }
 
     @Override
@@ -195,7 +223,7 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search");
+        searchView.setQueryHint("Club Name or Location");
 
 //        super.onCreateOptionsMenu(menu, inflater);
 
@@ -316,13 +344,11 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
 
             }catch (Exception ex){
-                Toast.makeText(getActivity(), "No internet connection or too slow !!", Toast.LENGTH_LONG).show();
                 ex.printStackTrace();
 
             }
 
         }
-
 
 
         getClubList = true;
@@ -402,7 +428,7 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
             latlong = String.valueOf(mLastLocation.getLatitude())+","+String.valueOf(mLastLocation.getLongitude());
 
         }
-        getclubListFromDatabase();
+        //getclubListFromDatabase();
 
     }
 
@@ -441,7 +467,7 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
         Toast.makeText(getActivity(),
                 "onConnectionSuspended: \n" ,
                 Toast.LENGTH_LONG).show();
-        getclubListFromDatabase();
+        //getclubListFromDatabase();
     }
 
     @Override
@@ -449,7 +475,62 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
         Toast.makeText(getActivity(),
                 "onConnectionFailed: \n" + connectionResult.toString(),
                 Toast.LENGTH_LONG).show();
-        getclubListFromDatabase();
+        //getclubListFromDatabase();
+    }
+
+
+    private class FetchData extends AsyncTask<String, String, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            linlaHeaderProgress.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... f_url) {
+            getclubListFromDatabase();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String file_url) {
+
+            adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
+            setListAdapter(adapter);
+
+
+            linlaHeaderProgress.setVisibility(View.GONE);
+
+
+        }
+    }
+
+
+    public class TaskCanceler implements Runnable{
+        private AsyncTask task;
+
+        public TaskCanceler(AsyncTask task) {
+            this.task = task;
+        }
+
+        @Override
+        public void run() {
+//            int count = 5;
+            if (task.getStatus() == AsyncTask.Status.RUNNING ){
+//                while(count>0){
+//                    Toast.makeText(getActivity(),
+//                        "Your Internet Connection Seems Slow, We Are Still Trying !!!",
+//                        Toast.LENGTH_LONG).show();
+//                    count--;
+//                    SystemClock.sleep(5*1000);
+//                }
+
+                alert.show();
+                task.cancel(true);
+            }
+
+        }
     }
 
 
