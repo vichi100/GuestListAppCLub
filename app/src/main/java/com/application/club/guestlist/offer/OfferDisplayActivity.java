@@ -81,15 +81,15 @@ public class OfferDisplayActivity extends AppCompatActivity implements EventList
         datetv.setText(eventDate);
 
         TextView clubNametv = (TextView) findViewById(R.id.club);
-        clubNametv.setText("CLUB    "+clubname);
+        clubNametv.setText(clubname);
 
         populateEventsListForClub();
 
         TextView djtv = (TextView) findViewById(R.id.dj);
-        djtv.setText("DJ    "+djname);
+        djtv.setText(djname);
 
         TextView musictv = (TextView) findViewById(R.id.musicx);
-        musictv.setText("MUSIC  "+music);
+        musictv.setText(music);
 
         if(passdiscount != null && !passdiscount.equalsIgnoreCase("0")){
             TextView passDiscounttv = (TextView) findViewById(R.id.passdiscount);
