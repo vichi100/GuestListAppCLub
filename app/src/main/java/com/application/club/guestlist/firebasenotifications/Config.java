@@ -8,7 +8,7 @@ package com.application.club.guestlist.firebasenotifications;
 public class Config {
 
     // global topic to receive app wide push notifications
-    public static final String TOPIC_GLOBAL = "CLUB_PASS_GLOBAL_TPOIC";
+    public static final String TOPIC_GLOBAL = "CLUB_GUEST_LIST_TPOIC";
 
     // broadcast receiver intent filters
     public static final String REGISTRATION_COMPLETE = "registrationComplete";

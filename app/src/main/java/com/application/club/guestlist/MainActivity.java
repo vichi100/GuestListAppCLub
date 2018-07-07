@@ -67,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
             }
         }
 
+        FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
+
+        displayFirebaseRegId();
 
 
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {

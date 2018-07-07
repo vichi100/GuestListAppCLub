@@ -1,6 +1,6 @@
 paypal
 vichi100@gmail.com
-meriMaa29071979#6
+meriMaa29071979#
 
 
 emailid pw: meriMaa29071979@
@@ -28,6 +28,10 @@ Current PIN
 
 
 godady email pw : meriMaa29071979#
+
+
+bluehost:
+meriMaa290779#
 
 #### App store #####
 
@@ -401,3 +405,20 @@ Rows matched: 11  Changed: 11  Warnings: 0
 mysql> update ticketdetails set date = '23/Jun/2018' where date='17/Jun/2018';
 Query OK, 11 rows affected (0.01 sec)
 Rows matched: 11  Changed: 11  Warnings: 0
+
+
+update ticketdetails set date = '25/Jun/2018' where date='18/Jun/2018'
+update ticketdetails set date = '26/Jun/2018' where date='19/Jun/2018'
+update ticketdetails set date = '27/Jun/2018' where date='20/Jun/2018';
+update ticketdetails set date = '28/Jun/2018' where date='21/Jun/2018';
+update ticketdetails set date = '29/Jun/2018' where date='22/Jun/2018';
+update ticketdetails set date = '30/Jun/2018' where date='23/Jun/2018';
+
+update eventdetails set date = '30/Jun/2018' where date='23/Jun/2018';
+
+update eventdetails set date = '25/Jun/2018' where date='18/Jun/2018';
+update eventdetails set date = '26/Jun/2018' where date='19/Jun/2018';
+update eventdetails set date = '27/Jun/2018' where date='20/Jun/2018';
+update eventdetails set date = '28/Jun/2018' where date='21/Jun/2018';
+update eventdetails set date = '29/Jun/2018' where date='22/Jun/2018';
+update eventdetails set date = '30/Jun/2018' where date='23/Jun/2018';
