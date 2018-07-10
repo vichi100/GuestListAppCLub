@@ -9,8 +9,8 @@ android {
         applicationId "com.application.club.guestlist"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 13
-        versionName "13.0"
+        versionCode 14
+        versionName "14.0"
     }
     buildTypes {
         release {
@@ -39,6 +39,11 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.google.android.gms:play-services-location:10.2.1'
+    compile 'com.github.hoanganhtuan95ptit:AutoPlayVideoRecyclerView:1.0.1'
+    compile 'com.danikula:videocache:2.7.0'
+    compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
 }
 

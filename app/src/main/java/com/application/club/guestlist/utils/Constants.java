@@ -15,6 +15,7 @@ public class Constants {
     //public static String HTTP_URL = "http://198.167.140.169:3030";
 
     public static String HTTP_URL = "http://199.180.133.121:3030";
+    public static String HTTP_VIDEO_URL = "http://199.180.133.121:3000";
 
     public static String CLUB_ID = "clubid";
     public static String CLUB_NAME = "clubname";
@@ -22,6 +23,7 @@ public class Constants {
     public static String LOACTION = "location";
     public static String ADDRESS = "address";
     public static String IMAGE_URL = "imageURL";
+    public static String VIDEO_URL= "videoURL";
     public static String LAT_LONG = "latlong";
     public static String RATING = "rating";
 

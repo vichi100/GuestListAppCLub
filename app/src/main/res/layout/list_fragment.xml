@@ -16,14 +16,10 @@
 
 
 
-    <ListView
-        android:id="@android:id/list"
+    <com.application.club.guestlist.autoplayvideorecyclerview.AutoPlayVideoRecyclerView
+        android:id="@+id/listFeed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:divider="#1c1d1d"
-        android:dividerHeight="1dip"
-        android:background="#1c1d1d">
-    </ListView>
+        android:layout_height="match_parent" />
 
 
 

@@ -107,19 +107,21 @@ https://maps.googleapis.com/maps/api/distancematrix/xml?origins=19.247720,72.850
 https://maps.googleapis.com/maps/api/distancematrix/xml?origins=19.247720,72.850071|19.247720,72.850071&destinations=19.0517349,72.83282680000002|19.1092611,72.82559719999995&mode=DRIVING&key=AIzaSyCOqekJA9O2fjhAivTI90gojOMudMfitOU
 
 
-INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, latlong, rating)
+INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, videoURL, latlong, rating)
      VALUES
-    ('99999', 'True Tramm Trunk','mumbai','juhu','near juhu thana','/images/club/truetrammtrunk/truetrammtrunk.png', '19.1033099,72.83135479999999' ,'5.0'),
-    ('100000' , 'Bombay Cocktail Bar','mumbai','Andheri west','Near infinity','/images/club/bcb/bcb.jpeg','19.1387824,72.83329400000002' ,'4.8'),
-    ('100001', 'We-VIP','mumbai','Andheri west','Near infinity','/images/club/wevip/wevip.jpg','19.138753,72.83341840000003' ,'3.9'),
-    ('100002','Barrel','mumbai','Andheri west','Near Audi show room','/images/club/barrel/barrel.jpg','19.1349064,72.83244639999998' ,'3.6'),
-    ('100003','Yeda Republic','mumbai','Juhu','Near Start bazzar','/images/club/yeda/yeda.jpg','19.1093099,72.8255924' ,'4.3'),
-    ('100004','R-Adda','mumbai','Juhu','Near Novatel','/images/club/radda/radda.jpg','19.1092611,72.82559719999995' ,'4.7'),
-    ('100005','Vortex','mumbai','Bandra','Near Novatel','/images/club/vortex/vortex.jpg','19.0650865,72.83340909999993' ,'4.8'),
-    ('100006','Su-Casa','mumbai','Bandra','Near Novatel','/images/club/sucasa/sucasa.jpg','19.0517349,72.83282680000002' ,'4.3'),
-    ('100007','Bombay Adda','mumbai','Santacruz','Near Novatel','/images/club/bombayadda/bombayadda.jpg','19.0759045,72.83387779999998' ,'3.3'),
-    ('100008','PlayBoy','mumbai','Worli','Near Novatel','/images/club/playboy/playboy.jpg','19.0072354,72.8250309' ,'2.3'),
-    ('100009','Kitty Su','mumbai','Andheri East','Near Novatel','/images/club/kittysu/kittysu.jpg','19.105277,72.87573299999997' ,'4.9');
+    ('99999', 'True Tramm Trunk','mumbai','juhu','near juhu thana','/images/club/truetrammtrunk/truetrammtrunk.png', '/video/assets/trurtramntrunk.mp4', '19.1033099,72.83135479999999' ,'5.0'),
+    ('100000' , 'Bombay Cocktail Bar','mumbai','Andheri west','Near infinity','/images/club/bcb/bcb.jpeg', '/video/assets/bcb.mp4', '19.1387824,72.83329400000002' ,'4.8'),
+    ('100001', 'We-VIP','mumbai','Andheri west','Near infinity','/images/club/wevip/wevip.jpg', '/video/assets/wevip.mp4', '19.138753,72.83341840000003' ,'3.9'),
+    ('100002','Barrel','mumbai','Andheri west','Near Audi show room','/images/club/barrel/barrel.jpg', '/video/assets/barrel.mp4', '19.1349064,72.83244639999998' ,'3.6'),
+    ('100003','Yeda Republic','mumbai','Juhu','Near Start bazzar','/images/club/yeda/yeda.jpg', '/video/assets/yedarepublic.mp4', '19.1093099,72.8255924' ,'4.3'),
+    ('100004','R-Adda','mumbai','Juhu','Near Novatel','/images/club/radda/radda.jpg', '/video/assets/radda.mp4', '19.1092611,72.82559719999995' ,'4.7'),
+    ('100005','Vortex','mumbai','Bandra','Near Novatel','/images/club/vortex/vortex.jpg', '/video/assets/vortex.mp4', '19.0650865,72.83340909999993' ,'4.8'),
+    ('100006','Su-Casa','mumbai','Bandra','Near Novatel','/images/club/sucasa/sucasa.jpg', '/video/assets/sucasa.mp4', '19.0517349,72.83282680000002' ,'4.3'),
+    ('100007','Bombay Adda','mumbai','Santacruz','Near Novatel','/images/club/bombayadda/bombayadda.jpg', '/video/assets/bombayadda.mp4', '19.0759045,72.83387779999998' ,'3.3'),
+    ('100008','PlayBoy','mumbai','Worli','Near Novatel','/images/club/playboy/playboy.jpg', '/video/assets/playboy.mp4', '19.0072354,72.8250309' ,'2.3'),
+    ('100009','Kitty Su','mumbai','Andheri East','Near Novatel','/images/club/kittysu/kittysu.jpg', '/video/assets/kittysu.mp4', '19.105277,72.87573299999997' ,'4.9');
+
+
 
 
 INSERT INTO eventdetails ( clubid, clubname,djname, music, date, imageURL)

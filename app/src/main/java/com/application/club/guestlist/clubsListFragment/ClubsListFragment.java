@@ -15,6 +15,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import android.content.Context;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.application.club.guestlist.R;
@@ -46,17 +48,25 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.application.club.guestlist.utils.Constants;
+import com.application.club.guestlist.videoMode.Feed;
+import com.application.club.guestlist.videoMode.Video;
+import com.application.club.guestlist.videoUI.CenterLayoutManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+//import com.hoanganhtuan95ptit.autoplayvideorecyclerview.AutoPlayVideoRecyclerView;
+import com.application.club.guestlist.autoplayvideorecyclerview.AutoPlayVideoRecyclerView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.application.club.guestlist.utils.Constants.LAT_LONG;
 
 //http://android-er.blogspot.com/2016/04/request-location-updates-with.html
 
-public class ClubsListFragment extends ListFragment implements OnItemClickListener,  SearchView.OnQueryTextListener,
+public class ClubsListFragment extends Fragment implements   SearchView.OnQueryTextListener,
         MenuItem.OnActionExpandListener, EventListener , LocationListener, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
@@ -68,7 +78,7 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
     ClubsListAdapter adapter;
 
     ClubsListAdapter mAdapter;
-    private List<ClubRowItem> clubRowItemList;
+    private List<Video> clubRowItemList;
 
     SocketOperator socketOperator  = new SocketOperator(this);
     boolean getClubList = false;
@@ -86,6 +96,9 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
     AlertDialog alert;
 
+    @BindView(R.id.listFeed)
+    AutoPlayVideoRecyclerView listFeed;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -100,6 +113,19 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 
 		super.onActivityCreated(savedInstanceState);
         //getActivity().getActionBar().setTitle("City");
+
+        listFeed = (AutoPlayVideoRecyclerView) getActivity().findViewById(R.id.listFeed);
+
+        ButterKnife.bind(getActivity());
+        listFeed.setLayoutManager(new CenterLayoutManager(getActivity()));
+//        listFeed.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position,
+//                                    long id) {
+//                // You can launch activity here in your case.
+//            }
+//        });
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Check Your Internet Connection!!!")
@@ -140,7 +166,7 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
         TaskCanceler taskCanceler = new TaskCanceler(fdTask);
 
         handler.postDelayed(taskCanceler, 60*1000);
-        getListView().setOnItemClickListener(this);
+        //listFeed.setOnItemClickListener(this);
 
 
 	}
@@ -169,12 +195,13 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
                 SystemClock.sleep(1000);
             }
 
-            clubRowItemList = new ArrayList<ClubRowItem>();
+            clubRowItemList = new ArrayList<Video>();
 
             if(clubsListJsonArray != null){
 
                 for(int i=0; i < clubsListJsonArray.length(); i++){
-                    ClubRowItem clubRowItem = new ClubRowItem();
+                    //ClubRowItem clubRowItem = new ClubRowItem();
+                    Video clubRowItem = new Video();
                     JSONObject clubjObj = clubsListJsonArray.getJSONObject(i);
 
 
@@ -184,6 +211,7 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
                     String location = clubjObj.getString(Constants.LOACTION);
                     String address = clubjObj.getString(Constants.ADDRESS);
                     String imageURL = clubjObj.getString(Constants.IMAGE_URL);
+                    String videoURL = clubjObj.getString(Constants.VIDEO_URL);
                     String latlong = clubjObj.getString(LAT_LONG);
                     String rating = clubjObj.getString(Constants.RATING);
 
@@ -193,13 +221,14 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
                     clubRowItem.setLocation(location);
                     clubRowItem.setAddress(address);
                     clubRowItem.setImageURL(imageURL);
+                    clubRowItem.setUrlVideo(Constants.HTTP_VIDEO_URL+videoURL);
                     clubRowItem.setLatlong(latlong);
                     clubRowItem.setRating(rating);
 
                     clubRowItemList.add(clubRowItem);
 
-                    ArrayList<ClubRowItem> x = new ArrayList<>(clubRowItemList);
-                    ArrayList<ClubRowItem> y = new ArrayList<>(clubRowItemList);
+//                    ArrayList<ClubRowItem> x = new ArrayList<>(clubRowItemList);
+//                    ArrayList<ClubRowItem> y = new ArrayList<>(clubRowItemList);
 
 
 
@@ -246,25 +275,25 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
         }
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-
-//        Toast.makeText(getActivity(), menutitles[position], Toast.LENGTH_SHORT)
-//                .show();
-        // we will get jasson array list here
-
-        ClubRowItem clubRowItemObj = clubRowItemList.get(position);
-        String clubId = clubRowItemObj.getClubid();
-        String clubName = clubRowItemObj.getClubname();
-        String imageUrl = clubRowItemObj.getImageURL();
-        Intent intent = new Intent(getActivity(), ClubDetailsListActivity.class);
-        intent.putExtra(Constants.CLUB_ID, clubId);
-        intent.putExtra(Constants.IMAGE_URL, imageUrl);
-        intent.putExtra(Constants.CLUB_NAME, clubName);
-        startActivity(intent);
-
-    }
+//    @Override
+//    public void onItemClick(AdapterView<?> parent, View view, int position,
+//                            long id) {
+//
+////        Toast.makeText(getActivity(), menutitles[position], Toast.LENGTH_SHORT)
+////                .show();
+//        // we will get jasson array list here
+//
+//        Video clubRowItemObj = clubRowItemList.get(position);
+//        String clubId = clubRowItemObj.getClubid();
+//        String clubName = clubRowItemObj.getClubname();
+//        String imageUrl = clubRowItemObj.getImageURL();
+//        Intent intent = new Intent(getActivity(), ClubDetailsListActivity.class);
+//        intent.putExtra(Constants.CLUB_ID, clubId);
+//        intent.putExtra(Constants.IMAGE_URL, imageUrl);
+//        intent.putExtra(Constants.CLUB_NAME, clubName);
+//        startActivity(intent);
+//
+//    }
 
 
     @Override
@@ -289,10 +318,10 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
             return false;
         }
 
-        ArrayList<ClubRowItem> filteredValues = new ArrayList<>(clubRowItemList);
+        ArrayList<Video> filteredValues = new ArrayList<>(clubRowItemList);
 
 
-        for (ClubRowItem value : clubRowItemList) {
+        for (Video value : clubRowItemList) {
             String removeValue = value.getClubname().toLowerCase()+value.getLocation().toLowerCase();
 
             if (!removeValue.contains(newText.toLowerCase())) {
@@ -314,8 +343,17 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
 //            }
 //        }
 
+        //adapter = new FeedAdapter(this);
+
+        //listFeed.setAdapter(adapter);
+
         mAdapter = new ClubsListAdapter(getActivity(), filteredValues);
-        setListAdapter(mAdapter);
+        listFeed.setAdapter(mAdapter);
+        for(Video v : filteredValues){
+            mAdapter.add(new Feed(v,Feed.Model.M1));
+        }
+        //setListAdapter(mAdapter);
+        //listFeed.setAdapter(adapter);
         mAdapter.notifyDataSetChanged();
 
 //        mAdapter = new ArrayAdapter<>(mContext, R.layout.club_item_list, filteredValues);
@@ -328,10 +366,32 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
     public void resetSearch() {
 //        mAdapter = new ArrayAdapter<>(mContext, R.layout.club_item_list, mAllValues);
 //        setListAdapter(mAdapter);
+
         adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
-        setListAdapter(adapter);
+        listFeed.setAdapter(adapter);
+        listFeed.setAdapter(adapter);
+        for(Video v : clubRowItemList){
+            adapter.add(new Feed(v,Feed.Model.M1));
+        }
+        //setListAdapter(adapter);
+        //listFeed.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
+
+//    public void filter(String text) {
+//        items.clear();
+//        if(text.isEmpty()){
+//            items.addAll(itemsCopy);
+//        } else{
+//            text = text.toLowerCase();
+//            for(PhoneBookItem item: itemsCopy){
+//                if(item.name.toLowerCase().contains(text) || item.phone.toLowerCase().contains(text)){
+//                    items.add(item);
+//                }
+//            }
+//        }
+//        notifyDataSetChanged();
+//    }
 
 
     public void eventReceived(String message){
@@ -497,7 +557,12 @@ public class ClubsListFragment extends ListFragment implements OnItemClickListen
         protected void onPostExecute(String file_url) {
 
             adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
-            setListAdapter(adapter);
+            //setListAdapter(adapter);
+            listFeed.setAdapter(adapter);
+            for(Video v : clubRowItemList){
+                adapter.add(new Feed(v,Feed.Model.M1));
+            }
+
 
 
             linlaHeaderProgress.setVisibility(View.GONE);
