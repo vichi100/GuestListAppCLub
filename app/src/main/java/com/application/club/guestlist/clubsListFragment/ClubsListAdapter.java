@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -41,6 +42,7 @@ public class ClubsListAdapter extends BaseAdapter<Feed> {
 
 	Context context;
 	List<Video> rowItem;
+	private final Activity mActivity;
 
 	private static int screenWight = 0;
 
@@ -52,6 +54,7 @@ public class ClubsListAdapter extends BaseAdapter<Feed> {
 	public ClubsListAdapter(Activity activity, List<Video> clubRowItemList) {
 		super(activity);
 		context = activity;
+		mActivity=activity;
 		this.rowItem = clubRowItemList;
 		screenWight = getScreenWight();
 	}
@@ -205,6 +208,7 @@ public class ClubsListAdapter extends BaseAdapter<Feed> {
 //	}
 
 	public  class DemoVideoHolder extends VideoHolder {
+		AudioManager manager;
 
 		@BindView(R.id.vvInfo)
 		VideoView vvInfo;
@@ -218,12 +222,28 @@ public class ClubsListAdapter extends BaseAdapter<Feed> {
 		TextView location;
 		@BindView(R.id.clubMainName)
 		TextView clubMainName;
+//		@BindView(R.id.speaker)
+//		ImageView speaker;
+//		@BindView(R.id.soundon)
+//		ImageView soundon;
+
+		boolean isMute = false;
 
 		//https://codentrick.com/recyclerview-example-part-3-android-recyclerview-onclicklistener/
 
 		public DemoVideoHolder(final View itemView) {
 			super(itemView);
+			manager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+
 			ButterKnife.bind(this, itemView);
+//			if(isMute){
+//				soundon.setVisibility(View.INVISIBLE);
+//				soundoff.setVisibility(View.VISIBLE);
+//			}else {
+//				soundon.setVisibility(View.VISIBLE);
+//				soundoff.setVisibility(View.INVISIBLE);
+//				context.
+//			}
 			itemView.setOnClickListener(new View.OnClickListener() {
 				@Override public void onClick(View v) {
 					int position = getAdapterPosition();
@@ -239,6 +259,62 @@ public class ClubsListAdapter extends BaseAdapter<Feed> {
                     context.startActivity(intent);
 				}
 			});
+
+			itemView.setOnLongClickListener(new View.OnLongClickListener() {
+				@Override public boolean onLongClick(View v) {
+					if(!isMute){
+						manager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+						isMute = true;
+					}else {
+						manager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+						isMute = false;
+					}
+					return true;
+				}
+			});
+//			speaker.setOnClickListener(new View.OnClickListener() {
+//				@Override public void onClick(View v) {
+//					if(!isMute){
+//						manager.setStreamMute(AudioManager.STREAM_MUSIC, true);
+//						isMute = true;
+//						new Thread(new Runnable() {
+//							public void run() {
+//								mActivity.runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										speaker.setImageResource(R.drawable.soundoff);
+//									}
+//								});
+//
+//							}
+//						}).start();
+//					}else {
+//						manager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+//						isMute = false;
+//						new Thread(new Runnable() {
+//							public void run() {
+//
+//								mActivity.runOnUiThread(new Runnable() {
+//									@Override
+//									public void run() {
+//										speaker.setImageResource(R.drawable.soundon);
+//									}
+//								});
+//
+//							}
+//						}).start();
+//					}
+//
+//				}
+//			});
+//			soundoff.setOnClickListener(new View.OnClickListener() {
+//				@Override public void onClick(View v) {
+//					manager.setStreamMute(AudioManager.STREAM_MUSIC, false);
+//					soundon.setVisibility(View.VISIBLE);
+//					soundoff.setVisibility(View.INVISIBLE);
+//					isMute = false;
+//				}
+//			});
 		}
 
 		@Override

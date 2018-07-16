@@ -16,10 +16,13 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.graphics.Color;
 import android.support.v7.app.ActionBar;
+import android.view.View;
+import android.widget.Toast;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
@@ -118,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
                 }
             }
         };
+
+        //displayTuto(); // one second delay
 
     }
 
@@ -273,5 +278,32 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
     protected void onPause() {
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
+    }
+
+    protected void displayTuto() {
+        TutoShowcase.from(this)
+                .setListener(new TutoShowcase.Listener() {
+                    @Override
+                    public void onDismissed() {
+                        Toast.makeText(MainActivity.this, "Tutorial dismissed", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setContentView(R.layout.activity_main)
+                .setFitsSystemWindows(true)
+                //.on(R.id.myBottomNavigation_ID)
+                //.addCircle()
+                //.withBorder()
+//                .onClick(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                })
+
+//                .on(R.id.swipable)
+//                .displaySwipableLeft()
+               // .delayed(399)
+               // .animated(true)
+                .show();
     }
 }

@@ -4,9 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.squareup.picasso.Picasso;
 import com.application.club.guestlist.R;
 import com.application.club.guestlist.service.EventListener;
@@ -17,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 
 import static com.application.club.guestlist.utils.Constants.CLUB_ID;
 import static com.application.club.guestlist.utils.Constants.HTTP_URL;
@@ -34,13 +39,16 @@ public class ClubDetailsListActivity extends AppCompatActivity implements EventL
     String clubId;
     String clubName;
 
+	private static final String SHOWCASE_ID = "simple example";
+
+	ListView clubListv;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.club_details_activity_custom_list);
 		//getSupportActionBar().setTitle("Events");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		//ImageView clubimagetv = (ImageView)findViewById(R.id.mainImage);
+		clubListv = (ListView)findViewById(R.id.lvUsers);
 		Intent intent = getIntent();
         clubName = intent.getStringExtra(Constants.CLUB_NAME);
         getSupportActionBar().setTitle(clubName);
@@ -57,6 +65,7 @@ public class ClubDetailsListActivity extends AppCompatActivity implements EventL
 
 
 		populateEventsListForClub();
+       // displayTuto(); // one second delay
 	}
 
 	private void populateEventsListForClub() {
@@ -192,6 +201,33 @@ public class ClubDetailsListActivity extends AppCompatActivity implements EventL
 
         finish();
         return true;
+    }
+
+    protected void displayTuto() {
+        TutoShowcase.from(this)
+                .setListener(new TutoShowcase.Listener() {
+                    @Override
+                    public void onDismissed() {
+                        Toast.makeText(ClubDetailsListActivity.this, "Tutorial dismissed", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setContentView(R.layout.club_details_activity_custom_list)
+                .setFitsSystemWindows(true)
+                //.on(R.id.about)
+                //.addCircle()
+                //.withBorder()
+//                .onClick(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                })
+
+                //.on(R.id.swipable)
+                //.displaySwipableLeft()
+                //.delayed(399)
+                //.animated(true)
+                .show();
     }
 	
 }

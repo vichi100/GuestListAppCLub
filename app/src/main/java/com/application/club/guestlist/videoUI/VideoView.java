@@ -106,7 +106,7 @@ public class VideoView extends RelativeLayout implements TextureView.SurfaceText
     }
 
     public void stop() {
-        if (!isPlaying) return;
+        //if (!isPlaying) return;
         isPlaying = false;
         video.setSeekTo(mediaPlayer.getCurrentPosition() >= mediaPlayer.getDuration() ? 0 : mediaPlayer.getCurrentPosition());
         mediaPlayer.pause();

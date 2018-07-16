@@ -82,13 +82,13 @@ public class ClubsDetailListAdapter extends ArrayAdapter<ClubEventsDetailsItem> 
 
 
          if(todayDate.getYear() >= eventdateAsDate.getYear() && todayDate.getMonth()>= eventdateAsDate.getMonth() && todayDate.getDate()>eventdateAsDate.getDate() ){
-             convertView.setAlpha((float) 0.5);
-             convertView.setBackgroundColor(Color.GRAY);
+             convertView.setAlpha((float) 1.0);
              table.setEnabled(true);
              pass.setEnabled(true);
              guestList.setEnabled(true);
          }else{
-             convertView.setAlpha((float) 1.0);
+             convertView.setAlpha((float) 0.5);
+             convertView.setBackgroundColor(Color.GRAY);
              table.setEnabled(false);
              pass.setEnabled(false);
              guestList.setEnabled(false);
