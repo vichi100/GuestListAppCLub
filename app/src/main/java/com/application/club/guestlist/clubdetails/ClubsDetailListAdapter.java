@@ -81,7 +81,7 @@ public class ClubsDetailListAdapter extends ArrayAdapter<ClubEventsDetailsItem> 
          Date todayDate = UtillMethods.getTodayDateAsDate();
 
 
-         if(todayDate.getYear() >= eventdateAsDate.getYear() && todayDate.getMonth()>= eventdateAsDate.getMonth() && todayDate.getDate()>eventdateAsDate.getDate() ){
+         if(todayDate.getYear() >= eventdateAsDate.getYear() && todayDate.getMonth()>= eventdateAsDate.getMonth() && todayDate.getDate()<=eventdateAsDate.getDate() ){
              convertView.setAlpha((float) 1.0);
              table.setEnabled(true);
              pass.setEnabled(true);

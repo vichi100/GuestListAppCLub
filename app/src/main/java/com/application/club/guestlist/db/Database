@@ -407,8 +407,8 @@ Query OK, 11 rows affected (0.01 sec)
 Rows matched: 11  Changed: 11  Warnings: 0
 
 
-update ticketdetails set date = '25/Jun/2018' where date='18/Jun/2018'
-update ticketdetails set date = '26/Jun/2018' where date='19/Jun/2018'
+update ticketdetails set date = '25/Jun/2018' where date='18/Jun/2018';
+update ticketdetails set date = '26/Jun/2018' where date='19/Jun/2018';
 update ticketdetails set date = '27/Jun/2018' where date='20/Jun/2018';
 update ticketdetails set date = '28/Jun/2018' where date='21/Jun/2018';
 update ticketdetails set date = '29/Jun/2018' where date='22/Jun/2018';
@@ -422,3 +422,29 @@ update eventdetails set date = '27/Jun/2018' where date='20/Jun/2018';
 update eventdetails set date = '28/Jun/2018' where date='21/Jun/2018';
 update eventdetails set date = '29/Jun/2018' where date='22/Jun/2018';
 update eventdetails set date = '30/Jun/2018' where date='23/Jun/2018';
+
+
+update eventdetails set date = '23/Jul/2018' where date='25/Jun/2018';
+update eventdetails set date = '24/Jul/2018' where date='26/Jun/2018';
+update eventdetails set date = '25/Jul/2018' where date='27/Jun/2018';
+update eventdetails set date = '26/Jul/2018' where date='28/Jun/2018';
+update eventdetails set date = '27/Jul/2018' where date='29/Jun/2018';
+update eventdetails set date = '28/Jul/2018' where date='30/Jun/2018';
+
+
+update ticketdetails set date = '23/Jul/2018' where date='25/Jun/2018';
+update ticketdetails set date = '24/Jul/2018' where date='26/Jun/2018';
+update ticketdetails set date = '25/Jul/2018' where date='27/Jun/2018';
+update ticketdetails set date = '26/Jul/2018' where date='28/Jun/2018';
+update ticketdetails set date = '27/Jul/2018' where date='29/Jun/2018';
+update ticketdetails set date = '28/Jul/2018' where date='30/Jun/2018';
+
+
+
+update offers set date = '23/Jul/2018' and starttime =  '23/Jul/2018 12:00:00' and  timetoexpire = '28/Jul/2018 20:00:00' where clubid = '99999'
+
+update offers set date = '23/Jul/2018' and starttime =  '23/Jul/2018 12:00:00' and  timetoexpire = '27/Jul/2018 20:00:00' where clubid = '100009'
+
+update offers set date = '23/Jul/2018' and starttime =  '23/Jul/2018 12:00:00' and  timetoexpire = '27/Jul/2018 20:00:00' where clubid = '100009'
+
+update offers set date = '23/Jul/2018' where clubid = '100009';
