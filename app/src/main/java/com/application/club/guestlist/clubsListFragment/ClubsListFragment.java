@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -37,8 +38,16 @@ import android.content.Context;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.application.club.guestlist.MainActivity;
 import com.application.club.guestlist.R;
+import com.application.club.guestlist.booking.BookGuestListActivity;
+import com.application.club.guestlist.booking.BookPassActivity;
+import com.application.club.guestlist.bookingTable.TableBookingActivity;
+import com.application.club.guestlist.bookingTable.TableSelectionActivity;
+import com.application.club.guestlist.bookingTable.TableSelectionWebClientActivity;
 import com.application.club.guestlist.clubdetails.ClubDetailsListActivity;
+import com.application.club.guestlist.clubdetails.ClubEventsDetailsItem;
+import com.application.club.guestlist.clubdetails.TicketDetailsItem;
 import com.application.club.guestlist.login.LoginActivity;
 import com.application.club.guestlist.menu.ChangeLocationActivity;
 import com.application.club.guestlist.service.EventListener;
@@ -48,6 +57,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.application.club.guestlist.utils.Constants;
+import com.application.club.guestlist.utils.UtillMethods;
 import com.application.club.guestlist.videoMode.Feed;
 import com.application.club.guestlist.videoMode.Video;
 import com.application.club.guestlist.videoUI.CenterLayoutManager;
@@ -58,6 +68,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 //import com.hoanganhtuan95ptit.autoplayvideorecyclerview.AutoPlayVideoRecyclerView;
 import com.application.club.guestlist.autoplayvideorecyclerview.AutoPlayVideoRecyclerView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,333 +77,263 @@ import static com.application.club.guestlist.utils.Constants.LAT_LONG;
 
 //http://android-er.blogspot.com/2016/04/request-location-updates-with.html
 
-public class ClubsListFragment extends Fragment implements   SearchView.OnQueryTextListener,
-        MenuItem.OnActionExpandListener, EventListener , LocationListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener{
-
-	String[] menutitles;
-	TypedArray menuIcons;
-
-    List<String> mAllValues;
-    private Context mContext;
-    ClubsListAdapter adapter;
-
-    ClubsListAdapter mAdapter;
-    private List<Video> clubRowItemList;
+public class ClubsListFragment extends Fragment implements
+        EventListener {
 
     SocketOperator socketOperator  = new SocketOperator(this);
-    boolean getClubList = false;
+    boolean getData = false;
+    static JSONArray clubsEventListJsonArray;
+    static JSONArray ticketDetailsListJsonArray;
+    static JSONArray tableDetailsListJsonArray;
+    String clubId;
+    String clubname;
+    String eventDate;
+    String djname;
+    String music;
+    String imageURL;
+    String isNotification;
+    String passdiscount;
+    String tablediscount;
+    String location;
 
-    static JSONArray clubsListJsonArray;
+    private ArrayList<ClubEventsDetailsItem> clubEventDetailsItemList;
+    private ArrayList<TicketDetailsItem> ticketDetailsItemList;
 
-    GoogleApiClient mGoogleApiClient;
-    LocationRequest mLocationRequest;
-
-    String latlong = "";
-
-    static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
-
-    ProgressBar linlaHeaderProgress;
-
-    AlertDialog alert;
-
-    @BindView(R.id.listFeed)
-    AutoPlayVideoRecyclerView listFeed;
-
-	@Override
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
         setHasOptionsMenu(true);
 
-        return inflater.inflate(R.layout.list_fragment, null, false);
+        return inflater.inflate(R.layout.offer_display_activity, null, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 
 		super.onActivityCreated(savedInstanceState);
-        //getActivity().getActionBar().setTitle("City");
+        //getActivity().getSupportActionBar().setTitle("City");
 
-        listFeed = (AutoPlayVideoRecyclerView) getActivity().findViewById(R.id.listFeed);
-
-        ButterKnife.bind(getActivity());
-        listFeed.setLayoutManager(new CenterLayoutManager(getActivity()));
-//        listFeed.setOnItemClickListener(new OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position,
-//                                    long id) {
-//                // You can launch activity here in your case.
-//            }
-//        });
+        clubId = getArguments().getString(Constants.CLUB_ID);
+        clubname = getArguments().getString(Constants.CLUB_NAME);
+        djname = getArguments().getString(Constants.DJ_NAME);
+        music = getArguments().getString(Constants.MUSIC);
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Check Your Internet Connection!!!")
-                .setCancelable(false)
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //do things
-                    }
-                });
-        alert = builder.create();
+        eventDate  = UtillMethods.getTodayDate();
+//        clubId  = "99999";
+//        clubname  = "True Tramm Trunk";//intent.getStringExtra(Constants.CLUB_NAME);
+//
+//        djname = "vicky";//intent.getStringExtra(Constants.DJ_NAME);
+//        music = "hiphop";//ntent.getStringExtra(Constants.MUSIC););
 
-        linlaHeaderProgress = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
+        imageURL = "/images/club/truetrammtrunk/truetrammtrunk.png";//intent.getStringExtra(Constants.IMAGE_URL);UNT);
 
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(2*60*1000);
-        mLocationRequest.setFastestInterval(500);
-        mLocationRequest.setSmallestDisplacement(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
+        String day = UtillMethods.getDayFromDate(eventDate);
 
-        mGoogleApiClient.connect();
+        TextView daytv = (TextView) getActivity().findViewById(R.id.day);
+        daytv.setText(day);
 
+        TextView datetv = (TextView) getActivity().findViewById(R.id.date);
+        datetv.setText(eventDate);
 
+        TextView clubNametv = (TextView) getActivity().findViewById(R.id.club);
+        clubNametv.setText(clubname);
 
+        populateEventsListForClub();
 
-		menutitles = getResources().getStringArray(R.array.titles);
-		menuIcons = getResources().obtainTypedArray(R.array.icons);
+        TextView djtv = (TextView) getActivity().findViewById(R.id.dj);
+        djtv.setText(djname);
 
+        TextView musictv = (TextView) getActivity().findViewById(R.id.musicx);
+        musictv.setText(music);
 
-		Handler handler = new Handler();
-        FetchData fdTask = new FetchData();
-        fdTask.execute();
-
-        TaskCanceler taskCanceler = new TaskCanceler(fdTask);
-
-        handler.postDelayed(taskCanceler, 60*1000);
-        //listFeed.setOnItemClickListener(this);
-
-
-	}
+//        if(passdiscount != null && !passdiscount.equalsIgnoreCase("0")){
+//            TextView passDiscounttv = (TextView) getActivity().findViewById(R.id.passdiscount);
+//            passDiscounttv.setText("PASS: "+passdiscount+"% Off");
+//            passDiscounttv.setVisibility(View.VISIBLE);
+//        }
+//
+//        if(tablediscount != null && !tablediscount.equalsIgnoreCase("0")){
+//            TextView tableDiscounttv = (TextView) getActivity().findViewById(R.id.tablediscount);
+//            tableDiscounttv.setText("TABLE: "+tablediscount+"% Off");
+//            tableDiscounttv.setVisibility(View.VISIBLE);
+//        }
 
 
-	private void getclubListFromDatabase(){
+        ImageView mainImagetv = (ImageView) getActivity().findViewById(R.id.mainImage);
+
+        Picasso.with(getActivity().getApplicationContext()).load(Constants.HTTP_URL+imageURL).into(mainImagetv);
+
+//        TextView timetv = (TextView) findViewById(R.id.time);
+//        timetv.setText("TIME    "+startTime);
+
+        TextView guestList = (TextView) getActivity().findViewById(R.id.guestList);
+        TextView table = (TextView) getActivity().findViewById(R.id.table);
+        TextView pass = (TextView) getActivity().findViewById(R.id.pass);
+
+
+
+
+        final Intent intentG = new Intent(getActivity(), BookGuestListActivity.class);
+        final Intent intentP = new Intent(getActivity(), BookPassActivity.class);
+        final Intent intentT = new Intent(getActivity(), TableSelectionWebClientActivity.class);
+
+
+        guestList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Intent intentx = new Intent(this, BookGuestListActivity.class);
+                intentG.putExtra(Constants.CLUB_ID, clubId);
+                intentG.putExtra(Constants.CLUB_NAME, clubname);
+                intentG.putExtra(Constants.EVENTDATE, eventDate);
+                intentG.putExtra(Constants.IMAGE_URL, imageURL);
+                intentG.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
+                startActivity(intentG);
+
+            }
+        });
+
+        pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                intentP.putExtra(Constants.CLUB_ID, clubId);
+                intentP.putExtra(Constants.CLUB_NAME, clubname);
+                intentP.putExtra(Constants.EVENTDATE, eventDate);
+                intentP.putExtra(Constants.IMAGE_URL, imageURL);
+                intentP.putExtra(Constants.PASS_DISCOUNT, passdiscount);
+                intentP.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
+                startActivity(intentP);
+
+            }
+        });
+
+        table.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Intent intent = new Intent(mContext, TableBookingActivity.class);
+                intentT.putExtra(Constants.CLUB_ID, clubId);
+                intentT.putExtra(Constants.CLUB_NAME, clubname);
+                intentT.putExtra(Constants.EVENTDATE, eventDate);
+                intentT.putExtra(Constants.IMAGE_URL, imageURL);
+                intentT.putExtra(Constants.TABLE_DISCOUNT, tablediscount);
+                intentT.putExtra(Constants.TICKET_DETAILS, tableDetailsListJsonArray.toString());
+                startActivity(intentT);
+
+            }
+        });
+
+
+
+    }
+
+
+    private void populateEventsListForClub() {
+
+
         try{
-            SharedPreferences settings = getActivity().getSharedPreferences(Constants.PREFS_NAME, 0);
-            String city = settings.getString(Constants.CITY,"");
-            JSONObject loadClubListFromDatabase = new JSONObject();
-            loadClubListFromDatabase.put("action", "loadClubListFromDatabase");
-            loadClubListFromDatabase.put(Constants.CITY, city);
-            loadClubListFromDatabase.put(Constants.LAT_LONG, latlong);
+
+            JSONObject loadClubEventsListFromDatabase = new JSONObject();
+            loadClubEventsListFromDatabase.put("action", "getEventDetailsForOfferFromDatabase");
+            loadClubEventsListFromDatabase.put(Constants.CLUB_ID, clubId);
+            loadClubEventsListFromDatabase.put(Constants.EVENTDATE, eventDate);
+            socketOperator.sendMessage(loadClubEventsListFromDatabase);
 
 
-            socketOperator.sendMessage(loadClubListFromDatabase);
-
-        }catch (Exception ex){
-            ex.printStackTrace();
-        }
-
-        try{
-
-
-            while(!getClubList){
+            while(!getData){
                 SystemClock.sleep(1000);
             }
 
-            clubRowItemList = new ArrayList<Video>();
+            clubEventDetailsItemList = new ArrayList<ClubEventsDetailsItem>();
 
-            if(clubsListJsonArray != null){
+            if(clubsEventListJsonArray != null){
 
-                for(int i=0; i < clubsListJsonArray.length(); i++){
-                    //ClubRowItem clubRowItem = new ClubRowItem();
-                    Video clubRowItem = new Video();
-                    JSONObject clubjObj = clubsListJsonArray.getJSONObject(i);
+                for(int i=0; i < clubsEventListJsonArray.length(); i++){
+                    ClubEventsDetailsItem clubEventsDetailsItemObj = new ClubEventsDetailsItem();
+                    JSONObject clubEventJObj = clubsEventListJsonArray.getJSONObject(i);
 
 
-                    String clubid = clubjObj.getString(Constants.CLUB_ID);
-                    String clubname = clubjObj.getString(Constants.CLUB_NAME);
-                    String city = clubjObj.getString(Constants.CITY);
-                    String location = clubjObj.getString(Constants.LOACTION);
-                    String address = clubjObj.getString(Constants.ADDRESS);
-                    String imageURL = clubjObj.getString(Constants.IMAGE_URL);
-                    String videoURL = clubjObj.getString(Constants.VIDEO_URL);
-                    String latlong = clubjObj.getString(LAT_LONG);
-                    String rating = clubjObj.getString(Constants.RATING);
 
-                    clubRowItem.setClubname(clubname);
-                    clubRowItem.setClubid(clubid);
-                    clubRowItem.setCity(city);
-                    clubRowItem.setLocation(location);
-                    clubRowItem.setAddress(address);
-                    clubRowItem.setImageURL(imageURL);
-                    clubRowItem.setUrlVideo(Constants.HTTP_VIDEO_URL+videoURL);
-                    clubRowItem.setLatlong(latlong);
-                    clubRowItem.setRating(rating);
 
-                    clubRowItemList.add(clubRowItem);
+                    String clubid = clubEventJObj.getString(Constants.CLUB_ID);
+                    String clubname = clubEventJObj.getString(Constants.CLUB_NAME);
+                    djname = clubEventJObj.getString(Constants.DJ_NAME);
+                    music = clubEventJObj.getString(Constants.MUSIC_TYPE);
+                    String date = clubEventJObj.getString(Constants.EVENTDATE);
+                    String imageURL = clubEventJObj.getString(Constants.IMAGE_URL);
 
-//                    ArrayList<ClubRowItem> x = new ArrayList<>(clubRowItemList);
-//                    ArrayList<ClubRowItem> y = new ArrayList<>(clubRowItemList);
+                    clubEventsDetailsItemObj.setClubname(clubname);
+                    clubEventsDetailsItemObj.setClubid(clubid);
+                    clubEventsDetailsItemObj.setDjname(djname);
+                    clubEventsDetailsItemObj.setMusic(music);
+                    clubEventsDetailsItemObj.setDate(date);
+                    clubEventsDetailsItemObj.setImageURL(imageURL);
+
+                    clubEventDetailsItemList.add(clubEventsDetailsItemObj);
 
 
 
                 }
 
             }
+
+            ticketDetailsItemList = new ArrayList<TicketDetailsItem>();
+
+            if(ticketDetailsListJsonArray != null){
+
+                for(int i=0; i < ticketDetailsListJsonArray.length(); i++){
+                    TicketDetailsItem ticketDetailsItemObj = new TicketDetailsItem();
+                    JSONObject ticketDetailJObj = ticketDetailsListJsonArray.getJSONObject(i);
+
+
+                    String clubid = ticketDetailJObj.getString(Constants.CLUB_ID);
+                    String clubname = ticketDetailJObj.getString(Constants.CLUB_NAME);
+
+                    String type = ticketDetailJObj.getString(Constants.TICKET_TYPE);
+                    String cost = ticketDetailJObj.getString(Constants.COST);
+                    String details = ticketDetailJObj.getString(Constants.DETAILS);
+
+                    String day = ticketDetailJObj.getString(Constants.DAY);
+                    String date = ticketDetailJObj.getString(Constants.EVENTDATE);
+                    String totaltickets = ticketDetailJObj.getString(Constants.TOTAL_TICKETS);
+                    String availbletickets = ticketDetailJObj.getString(Constants.AVAILBLE_TICKETS);
+
+
+                    ticketDetailsItemObj.setClubname(clubname);
+                    ticketDetailsItemObj.setClubid(clubid);
+                    ticketDetailsItemObj.setType(type);
+                    ticketDetailsItemObj.setCost(cost);
+                    ticketDetailsItemObj.setDetails(details);
+                    ticketDetailsItemObj.setDay(day);
+                    ticketDetailsItemObj.setDate(date);
+                    ticketDetailsItemObj.setTotaltickets(totaltickets);
+                    ticketDetailsItemObj.setAvailbletickets(availbletickets);
+
+                    ticketDetailsItemList.add(ticketDetailsItemObj);
+
+
+
+                }
+
+            }
+
+
         }catch (Exception ex){
             ex.printStackTrace();
         }
 
-
-
-//        adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
-//        setListAdapter(adapter);
-//        getListView().setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.search_menu, menu);
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Club Name or Location");
-
-//        super.onCreateOptionsMenu(menu, inflater);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-//            case R.id.action_search:
-//                newGame();
-//                return true;
-            case R.id.action_location:
-                Intent intent = new Intent(getActivity(), ChangeLocationActivity.class);
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position,
-//                            long id) {
+        // Create the adapter to convert the array to views
+//        ClubsDetailListAdapter adapter = new ClubsDetailListAdapter(this, clubEventDetailsItemList);
 //
-////        Toast.makeText(getActivity(), menutitles[position], Toast.LENGTH_SHORT)
-////                .show();
-//        // we will get jasson array list here
+//        adapter.setTicketDetailsListJsonArray(ticketDetailsListJsonArray);
 //
-//        Video clubRowItemObj = clubRowItemList.get(position);
-//        String clubId = clubRowItemObj.getClubid();
-//        String clubName = clubRowItemObj.getClubname();
-//        String imageUrl = clubRowItemObj.getImageURL();
-//        Intent intent = new Intent(getActivity(), ClubDetailsListActivity.class);
-//        intent.putExtra(Constants.CLUB_ID, clubId);
-//        intent.putExtra(Constants.IMAGE_URL, imageUrl);
-//        intent.putExtra(Constants.CLUB_NAME, clubName);
-//        startActivity(intent);
-//
-//    }
-
-
-    @Override
-    public boolean onMenuItemActionExpand(MenuItem menuItem) {
-        return true;
+//        Constants.setTicketDetailsItemList(ticketDetailsItemList);
+//        // Attach the adapter to a ListView
+//        ListView listView = (ListView) this.findViewById(R.id.lvUsers);
+//        listView.setAdapter(adapter);
     }
-
-    @Override
-    public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String s) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        if (newText == null || newText.trim().isEmpty() || newText.length() <4) {
-            resetSearch();
-            return false;
-        }
-
-        ArrayList<Video> filteredValues = new ArrayList<>(clubRowItemList);
-
-
-        for (Video value : clubRowItemList) {
-            String removeValue = value.getClubname().toLowerCase()+value.getLocation().toLowerCase();
-
-            if (!removeValue.contains(newText.toLowerCase())) {
-                filteredValues.remove(value);
-            }
-
-//            if (!value.getClubname().toLowerCase().contains(newText.toLowerCase())) {
-//                filteredValues.remove(value);
-//            }
-//            if (!value.getLocation().toLowerCase().contains(newText.toLowerCase())) {
-//                filteredValues.remove(value);
-//            }
-        }
-
-//        List<String> filteredValues = new ArrayList<String>(mAllValues);
-//        for (String value : mAllValues) {
-//            if (!value.toLowerCase().contains(newText.toLowerCase())) {
-//                filteredValues.remove(value);
-//            }
-//        }
-
-        //adapter = new FeedAdapter(this);
-
-        //listFeed.setAdapter(adapter);
-
-        mAdapter = new ClubsListAdapter(getActivity(), filteredValues);
-        listFeed.setAdapter(mAdapter);
-        for(Video v : filteredValues){
-            mAdapter.add(new Feed(v,Feed.Model.M1));
-        }
-        //setListAdapter(mAdapter);
-        //listFeed.setAdapter(adapter);
-        mAdapter.notifyDataSetChanged();
-
-//        mAdapter = new ArrayAdapter<>(mContext, R.layout.club_item_list, filteredValues);
-//        setListAdapter(mAdapter);
-
-
-        return false;
-    }
-
-    public void resetSearch() {
-//        mAdapter = new ArrayAdapter<>(mContext, R.layout.club_item_list, mAllValues);
-//        setListAdapter(mAdapter);
-
-        adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
-        listFeed.setAdapter(adapter);
-        listFeed.setAdapter(adapter);
-        for(Video v : clubRowItemList){
-            adapter.add(new Feed(v,Feed.Model.M1));
-        }
-        //setListAdapter(adapter);
-        //listFeed.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-//    public void filter(String text) {
-//        items.clear();
-//        if(text.isEmpty()){
-//            items.addAll(itemsCopy);
-//        } else{
-//            text = text.toLowerCase();
-//            for(PhoneBookItem item: itemsCopy){
-//                if(item.name.toLowerCase().contains(text) || item.phone.toLowerCase().contains(text)){
-//                    items.add(item);
-//                }
-//            }
-//        }
-//        notifyDataSetChanged();
-//    }
-
 
     public void eventReceived(String message){
         // conver message to list
@@ -400,7 +341,9 @@ public class ClubsListFragment extends Fragment implements   SearchView.OnQueryT
 
             try{
                 JSONObject eventJObjX = new JSONObject(message);
-                clubsListJsonArray = eventJObjX.getJSONArray("jsonResponseList");
+                clubsEventListJsonArray = eventJObjX.getJSONArray("eventsDetailList");
+                ticketDetailsListJsonArray = eventJObjX.getJSONArray("ticketDetailsList");
+                tableDetailsListJsonArray = eventJObjX.getJSONArray("tableDetailsList");
 
 
             }catch (Exception ex){
@@ -411,192 +354,20 @@ public class ClubsListFragment extends Fragment implements   SearchView.OnQueryT
         }
 
 
-        getClubList = true;
+        getData = true;
 
 
 
     }
 
-
-    @Override
-    public void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
 
 //    @Override
-//    public void onResume() {
-//        getclubListFromDatabase();
-//        super.onResume();
-//    }
-
-    @Override
-    public void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if (location != null) {
-//            String strLocation =
-//                    DateFormat.getTimeInstance().format(location.getTime()) + "\n" +
-//                            "Latitude=" + location.getLatitude() + "\n" +
-//                            "Longitude=" + location.getLongitude();
+//    public void onBackPressed() {
 //
-//            textAutoUpdateLocation.setText(strLocation);
-
-            latlong = location.getLatitude()+","+location.getLongitude();
-
-
-            //Toast.makeText(getActivity(), "latlong3: "+latlong, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-        if (ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-
-            return;
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
-
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            // here we go you can see current lat long.
-            //Log.e(TAG, "onConnected: " + String.valueOf(mLastLocation.getLatitude()) + ":" + String.valueOf(mLastLocation.getLongitude()));
-//            Toast.makeText(getActivity(),
-//                    "permission was granted, :)"+"onConnected: " + String.valueOf(mLastLocation.getLatitude()) + ":" + String.valueOf(mLastLocation.getLongitude()),
-//                    Toast.LENGTH_LONG).show();
-            latlong = String.valueOf(mLastLocation.getLatitude())+","+String.valueOf(mLastLocation.getLongitude());
-
-        }
-        //getclubListFromDatabase();
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(getActivity(),
-                            "permission was granted, :)",
-                            Toast.LENGTH_LONG).show();
-
-                    try{
-                        LocationServices.FusedLocationApi.requestLocationUpdates(
-                                mGoogleApiClient, mLocationRequest, this);
-                    }catch(SecurityException e){
-                        Toast.makeText(getActivity(),
-                                "SecurityException:\n" + e.toString(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(getActivity(),
-                            "permission denied, ...:(",
-                            Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-        Toast.makeText(getActivity(),
-                "onConnectionSuspended: \n" ,
-                Toast.LENGTH_LONG).show();
-        //getclubListFromDatabase();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getActivity(),
-                "onConnectionFailed: \n" + connectionResult.toString(),
-                Toast.LENGTH_LONG).show();
-        //getclubListFromDatabase();
-    }
-
-
-    private class FetchData extends AsyncTask<String, String, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            linlaHeaderProgress.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected String doInBackground(String... f_url) {
-            getclubListFromDatabase();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String file_url) {
-
-            adapter = new ClubsListAdapter(getActivity(), clubRowItemList);
-            //setListAdapter(adapter);
-            listFeed.setAdapter(adapter);
-            for(Video v : clubRowItemList){
-                adapter.add(new Feed(v,Feed.Model.M1));
-            }
-
-
-
-            linlaHeaderProgress.setVisibility(View.GONE);
-
-
-        }
-    }
-
-
-    public class TaskCanceler implements Runnable{
-        private AsyncTask task;
-
-        public TaskCanceler(AsyncTask task) {
-            this.task = task;
-        }
-
-        @Override
-        public void run() {
-//            int count = 5;
-            if (task.getStatus() == AsyncTask.Status.RUNNING ){
-//                while(count>0){
-//                    Toast.makeText(getActivity(),
-//                        "Your Internet Connection Seems Slow, We Are Still Trying !!!",
-//                        Toast.LENGTH_LONG).show();
-//                    count--;
-//                    SystemClock.sleep(5*1000);
-//                }
-
-                alert.show();
-                task.cancel(true);
-            }
-
-        }
-    }
+//        finish();
+//        Intent intent = new Intent(OfferDisplayActivity.this, MainActivity.class);
+//        startActivity(intent);
+//    }
 
 
 }

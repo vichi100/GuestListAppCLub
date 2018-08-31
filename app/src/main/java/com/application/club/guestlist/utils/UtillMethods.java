@@ -8,8 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -80,7 +84,7 @@ public class UtillMethods {
         //TimeZone tz = TimeZone.getTimeZone("GMT+05:30");
         Calendar c = Calendar.getInstance(tz);
         Date todayDate = c.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
         String formattedDate = df.format(todayDate);
         return formattedDate;
 
@@ -180,6 +184,31 @@ public class UtillMethods {
         }
         //System.out.println(str.toString());
         return str.toString();
+    }
+
+    public static List<Date> getCurrentWeekDates(){
+        List<Date> dateList = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        //cal.setTime(new Date());//Set specific Date if you want to
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        SimpleDateFormat simpleDateformat = new SimpleDateFormat("E");
+        SimpleDateFormat simpleDateformat2 = new SimpleDateFormat("dd/MM/yyyy");
+
+        for(int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+            cal.set(Calendar.DAY_OF_WEEK, i);
+            Date date = cal.getTime();
+//            System.out.println(simpleDateformat.format(date));//Returns Date
+//            System.out.println(simpleDateformat2.format(date));
+            dateList.add(date);
+        }
+        Collections.sort(dateList, new Comparator<Date>(){
+
+            @Override
+            public int compare(Date o1, Date o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        return dateList;
     }
 
 

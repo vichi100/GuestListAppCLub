@@ -59,7 +59,6 @@
             android:id="@+id/clubName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Club: True Tram Trank"
             android:textSize="15dp"
             android:textColor="@color/appAccent" />
 
@@ -67,7 +66,6 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date: 27/Oct/2017"
             android:textSize="15dp"
             android:textColor="#9ccc65" />
 
@@ -93,7 +91,6 @@
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:textAlignment="center"
             android:textColor="#dc5d5d" />
 

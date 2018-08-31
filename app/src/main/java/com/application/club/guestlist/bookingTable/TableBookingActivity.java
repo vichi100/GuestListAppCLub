@@ -43,7 +43,7 @@ public class TableBookingActivity extends AppCompatActivity  implements AdapterV
         final String clubidx  = intent.getStringExtra(Constants.CLUB_ID);
         final String date = intent.getStringExtra(Constants.EVENTDATE);
         final String imageURL = intent.getStringExtra(Constants.IMAGE_URL);
-        final String tableDiscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
+        //final String tableDiscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
         final String ticketDetailsJsonArryStr = intent.getStringExtra(Constants.TICKET_DETAILS);
         JSONArray ticketDetailsListJsonArray = null;
         ticketDetailsrowItems = new ArrayList<TicketDetailsItem>();
@@ -115,7 +115,7 @@ public class TableBookingActivity extends AppCompatActivity  implements AdapterV
                 intent.putExtra(Constants.COST, cost);
                 intent.putExtra(Constants.DETAILS, details);
                 intent.putExtra(Constants.TABLE_SIZE, size);
-                intent.putExtra(Constants.TABLE_DISCOUNT, tableDiscount);
+                //intent.putExtra(Constants.TABLE_DISCOUNT, tableDiscount);
                 intent.putExtra(Constants.IMAGE_URL, imageURL);
                 startActivity(intent);
             }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GuestList</string>
+    <string name="app_name">ClubGL</string>
     <string name="action_settings">Settings</string>
     <string name="imgdesc">imgdesc</string>
     <string name="qv_add">+</string>

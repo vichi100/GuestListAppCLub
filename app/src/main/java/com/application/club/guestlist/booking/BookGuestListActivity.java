@@ -113,9 +113,9 @@ public class BookGuestListActivity extends AppCompatActivity implements EventLis
                         ticketBookingDetails.put(Constants.CLUB_ID, clubId);
                         ticketBookingDetails.put(Constants.CLUB_NAME, clubName);
                         ticketBookingDetails.put(Constants.QRNUMBER, qrNumber);
-                        ticketBookingDetails.put(Constants.CUSTOMERNAME, custmerName);
+                        ticketBookingDetails.put(Constants.CUSTOMERNAME, clubName);
                         ticketBookingDetails.put(Constants.MOBILE, custmerMobile);
-                        ticketBookingDetails.put(Constants.CUSTOMERID, customerId);
+                        ticketBookingDetails.put(Constants.CUSTOMERID, clubId);
                         ticketBookingDetails.put(Constants.COST, "0");
                         ticketBookingDetails.put(Constants.COSTAFTERDISCOUNT, "0");
                         ticketBookingDetails.put(Constants.PAID_AMOUNT, "0");

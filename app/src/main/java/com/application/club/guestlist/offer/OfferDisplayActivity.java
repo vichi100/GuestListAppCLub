@@ -43,8 +43,8 @@ public class OfferDisplayActivity extends AppCompatActivity implements EventList
     String music;
     String imageURL;
     String isNotification;
-    String passdiscount;
-    String tablediscount;
+    //String passdiscount;
+    //String tablediscount;
     String location;
 
     private ArrayList<ClubEventsDetailsItem> clubEventDetailsItemList;
@@ -69,8 +69,8 @@ public class OfferDisplayActivity extends AppCompatActivity implements EventList
 
         imageURL = intent.getStringExtra(Constants.IMAGE_URL);
         isNotification = intent.getStringExtra(Constants.IS_NOTIFICATION);
-        passdiscount = intent.getStringExtra(Constants.PASS_DISCOUNT);
-        tablediscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
+        //passdiscount = intent.getStringExtra(Constants.PASS_DISCOUNT);
+        //tablediscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
 
         String day = UtillMethods.getDayFromDate(eventDate);
 
@@ -91,17 +91,17 @@ public class OfferDisplayActivity extends AppCompatActivity implements EventList
         TextView musictv = (TextView) findViewById(R.id.musicx);
         musictv.setText(music);
 
-        if(passdiscount != null && !passdiscount.equalsIgnoreCase("0")){
-            TextView passDiscounttv = (TextView) findViewById(R.id.passdiscount);
-            passDiscounttv.setText("PASS: "+passdiscount+"% Off");
-            passDiscounttv.setVisibility(View.VISIBLE);
-        }
-
-        if(tablediscount != null && !tablediscount.equalsIgnoreCase("0")){
-            TextView tableDiscounttv = (TextView) findViewById(R.id.tablediscount);
-            tableDiscounttv.setText("TABLE: "+tablediscount+"% Off");
-            tableDiscounttv.setVisibility(View.VISIBLE);
-        }
+//        if(passdiscount != null && !passdiscount.equalsIgnoreCase("0")){
+//            TextView passDiscounttv = (TextView) findViewById(R.id.passdiscount);
+//            passDiscounttv.setText("PASS: "+passdiscount+"% Off");
+//            passDiscounttv.setVisibility(View.VISIBLE);
+//        }
+//
+//        if(tablediscount != null && !tablediscount.equalsIgnoreCase("0")){
+//            TextView tableDiscounttv = (TextView) findViewById(R.id.tablediscount);
+//            tableDiscounttv.setText("TABLE: "+tablediscount+"% Off");
+//            tableDiscounttv.setVisibility(View.VISIBLE);
+//        }
 
 
         ImageView mainImagetv = (ImageView)findViewById(R.id.mainImage);
@@ -146,7 +146,7 @@ public class OfferDisplayActivity extends AppCompatActivity implements EventList
                 intentP.putExtra(Constants.CLUB_NAME, clubname);
                 intentP.putExtra(Constants.EVENTDATE, eventDate);
                 intentP.putExtra(Constants.IMAGE_URL, imageURL);
-                intentP.putExtra(Constants.PASS_DISCOUNT, passdiscount);
+                //intentP.putExtra(Constants.PASS_DISCOUNT, passdiscount);
                 intentP.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
                 startActivity(intentP);
 
@@ -161,7 +161,7 @@ public class OfferDisplayActivity extends AppCompatActivity implements EventList
                 intentT.putExtra(Constants.CLUB_NAME, clubname);
                 intentT.putExtra(Constants.EVENTDATE, eventDate);
                 intentT.putExtra(Constants.IMAGE_URL, imageURL);
-                intentT.putExtra(Constants.TABLE_DISCOUNT, tablediscount);
+                //intentT.putExtra(Constants.TABLE_DISCOUNT, tablediscount);
                 intentT.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
                 startActivity(intentT);
 

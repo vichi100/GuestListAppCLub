@@ -16,6 +16,7 @@ public class Constants {
 
     public static String HTTP_URL = "http://199.180.133.121:3030";
     public static String HTTP_VIDEO_URL = "http://199.180.133.121:3000";
+    public static String HTTP_LAYOUT_HOST = "http://192.168.43.64";
 
     public static String CLUB_ID = "clubid";
     public static String CLUB_NAME = "clubname";
@@ -37,6 +38,7 @@ public class Constants {
     public static String REMAINING_AMOUNT = "remainingamount";
     public static String  DISCOUNT = "discount";
     public static String COSTAFTERDISCOUNT = "costafterdiscount";
+    public static String  REMAINING_AMT = "remainingamount";
     public static String DETAILS = "details";
     public static String DAY = "Day";
     public static String EVENTDATE = "date";
@@ -44,6 +46,8 @@ public class Constants {
     public static String TOTAL_TICKETS = "totaltickets";
     public static String AVAILBLE_TICKETS = "availbletickets";
     public static String TABLE_SIZE = "size";
+    public static String BOOKINGDATE = "bookingdate";
+    public static String TABLE_LAYOUT_URL = "/imagemap/layouthtml/";
 
 
     // eventdetails ( clubid, clubname,djname, music, date, imageURL)
@@ -71,13 +75,14 @@ public class Constants {
     // booking details table
 
     public static String CUSTOMERNAME = "cutomername";
+    public static String PASSWORD = "password";
     public static String MOBILE = "mobile";
     public static String  CLUBNME = "clubname";
     public static String QRNUMBER = "QRnumber";
     public static String TICKETTYPE ="tickettype";
     //public static String COST = "cost";
     public static String BOOKINGTIME = "bookingtime";
-    public static String BOOKINGDATE = "bookingdate";
+    //public static String BOOKINGDATE = "bookingdate";
 
 
     // Offers
@@ -103,6 +108,27 @@ public class Constants {
     public static String OFFERFORTABLE= "OfferForTable";
     public static String OFFERFORPASS= "offerForPass";
     public static String EVENTNAME= "eventName";
+
+
+    public static String TABLE_ID = "tableid";
+    public static String TABLE_TYPE = "tabletype";
+    public static String SIZE = "size";
+    public static String TABLE_NUMBER = "tablenumber";
+
+    public static String LOC_X = "LocX";
+    public static String LOC_Y = "LocY";
+
+    public static String O_HIGHT = "OHight";
+    public static String O_WIDTH = "OWidth";
+
+    public static String LAYOUT_URL = "layoutURL";
+
+    public static String ISBOOKED = "booked";
+
+    public static String BOOKING_DATA = "bookingdata";
+    public static String TABLE_BOOKING_DATA = "tablebookingdata";
+    public static String PASS_BOOKING_DATA = "passbookingdata";
+    public static String GUESTLIST_BOOKING_DATA = "guestlistbookingdata";
 
 
 

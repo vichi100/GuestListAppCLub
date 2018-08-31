@@ -35,9 +35,9 @@ mysql> select * from clubdetails;
 9 rows in set (0.00 sec)
 
 
-mysql> CREATE TABLE ticketdetails (clubid int, clubname VARCHAR(50), type VARCHAR(50), size VARCHAR(3), category VARCHAR(20),
-    cost VARCHAR(10), details VARCHAR(200), Day VARCHAR(15), date VARCHAR(15), totaltickets VARCHAR(3),
-           availbletickets VARCHAR(3));
+    mysql> CREATE TABLE ticketdetails (clubid int, clubname VARCHAR(50), type VARCHAR(50), size VARCHAR(3), category VARCHAR(20),
+        cost VARCHAR(10), details VARCHAR(200), Day VARCHAR(15), date VARCHAR(15), totaltickets VARCHAR(3),
+               availbletickets VARCHAR(3));
 Query OK, 0 rows affected (0.02 sec)
 
 mysql> INSERT INTO ticketdetails ( clubid, clubname,type, size, category, cost, details, Day, date, totaltickets, availbletickets)

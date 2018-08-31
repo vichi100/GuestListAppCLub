@@ -16,7 +16,10 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.application.club.guestlist.reports.DailySummaryReport;
+import com.application.club.guestlist.utils.UtillMethods;
 import com.github.florent37.tutoshowcase.TutoShowcase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.graphics.Color;
@@ -41,10 +44,12 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
     AHBottomNavigation bottomNavigation;
     DBHelper mydb;
+    String clubid  ;
+    String clubName;
+    String djName;
+    String music;
 
     private static final String TAG = MainActivity.class.getSimpleName();
-
-    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +58,26 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
+//        Intent intent = getIntent();
+//        clubid  = intent.getStringExtra(Constants.CLUB_ID);
+//        clubName  = intent.getStringExtra(Constants.CLUB_NAME);
+//        djName = intent.getStringExtra(Constants.DJ_NAME);
+//        music = intent.getStringExtra(Constants.MUSIC);
+//        String eventDate  = UtillMethods.getTodayDateAsDate().toString();
+
+        SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
+        clubName = settings.getString("clubname","");
+        clubid = settings.getString("clubid","");
+        djName = settings.getString(Constants.DJ_NAME,"");
+        music = settings.getString(Constants.MUSIC,"");
+
 
         bottomNavigation= (AHBottomNavigation) findViewById(R.id.myBottomNavigation_ID);
 
         bottomNavigation.setOnTabSelectedListener(this);
         this.createNavItems();
 
-        final Intent notificationIntent = new Intent(this, LocationChangeActivity.class);
+
 
         Bundle bundle = getIntent().getExtras();
 
@@ -69,59 +87,6 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
                 Log.d(TAG, "Key: " + key + " Value: " + value.toString());
             }
         }
-
-        FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
-
-        displayFirebaseRegId();
-
-
-        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                // checking for type intent filter
-                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
-                    // gcm successfully registered
-                    // now subscribe to `global` topic to receive app wide notifications
-                    FirebaseMessaging.getInstance().subscribeToTopic(Config.TOPIC_GLOBAL);
-
-                    displayFirebaseRegId();
-
-                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-
-
-                    String message = intent.getStringExtra("message");
-
-                    PendingIntent contentIntent = PendingIntent.getActivity(context,
-                            0, notificationIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_ONE_SHOT);
-
-                    NotificationManager nm = (NotificationManager) context
-                            .getSystemService(Context.NOTIFICATION_SERVICE);
-
-                    Resources res = context.getResources();
-                    NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-                    builder.setContentIntent(contentIntent)
-                            .setSmallIcon(R.drawable.ac)
-                            .setLargeIcon(BitmapFactory.decodeResource(res, R.drawable.ac))
-                            .setTicker("vichi")
-                            .setWhen(System.currentTimeMillis())
-                            .setAutoCancel(true)
-                            .setContentTitle("Message")
-                            .setContentText("vichi");
-                    Notification n = builder.getNotification();
-
-                    n.defaults |= Notification.DEFAULT_ALL;
-                    nm.notify(0, n);
-
-                    //Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    //txtMessage.setText(message);
-                }
-            }
-        };
-
         //displayTuto(); // one second delay
 
     }
@@ -139,17 +104,18 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
     private void createNavItems()
     {
         //CREATE ITEMS
-        AHBottomNavigationItem crimeItem=new AHBottomNavigationItem("Clubs",R.drawable.pub);
-        AHBottomNavigationItem passItem=new AHBottomNavigationItem("Passes",R.drawable.ticket3);
-        AHBottomNavigationItem offer=new AHBottomNavigationItem("Offers",R.drawable.offer2);
+        AHBottomNavigationItem crimeItem=new AHBottomNavigationItem("Club",R.drawable.pub);
+        AHBottomNavigationItem passItem=new AHBottomNavigationItem("Bookings",R.drawable.ticket3);
+
 
         //AHBottomNavigationItem trending=new AHBottomNavigationItem("Trending",R.drawable.trending);
-        AHBottomNavigationItem docsItem=new AHBottomNavigationItem("Me",R.drawable.guy);
+        AHBottomNavigationItem docsItem=new AHBottomNavigationItem("QRCode",R.drawable.qrcode);
+        AHBottomNavigationItem offer=new AHBottomNavigationItem("Charts",R.drawable.charts);
 
 
         //ADD ITEMS TO BAR
         bottomNavigation.addItem(crimeItem);
-        bottomNavigation.addItem(offer);
+        //bottomNavigation.addItem(offer);
         //bottomNavigation.addItem(trending);
         bottomNavigation.addItem(passItem);
         bottomNavigation.addItem(docsItem);
@@ -167,23 +133,31 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
         if(position==0)
         {
             SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
-            String city = settings.getString(Constants.CITY,"");
-//            ClubListxFragment searchFragment=new ClubListxFragment();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,searchFragment).commit();
             ClubsListFragment clubsListFragment =new ClubsListFragment();
+            //Put the value
+
+            Bundle args = new Bundle();
+            //args.putString("YourKey", "YourValue");
+            args.putString(Constants.CLUB_ID, clubid);
+            args.putString(Constants.CLUB_NAME, clubName);
+            args.putString(Constants.DJ_NAME, djName);
+            args.putString(Constants.MUSIC, music);
+            clubsListFragment.setArguments(args);
+
+
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id, clubsListFragment).commit();
-            title = city;
-        }
-        else if(position==1)
-        {
-
-            OffersFragment offersScreenFragment =new OffersFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, offersScreenFragment).commit();
-
-            title = "Offers";
-
 
         }
+//        else if(position==1)
+//        {
+//
+//            OffersFragment offersScreenFragment =new OffersFragment();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, offersScreenFragment).commit();
+//
+//            title = "Offers";
+//
+//
+//        }
 
 //        else if(position==1)
 //        {
@@ -195,28 +169,30 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 //
 //
 //        }
-        else if(position==2)
+        else if(position==1)
         {
-//            DocumentaryFragment documentaryFragment=new DocumentaryFragment();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,documentaryFragment).commit();
-//            CrimeFragment crimeFragment=new CrimeFragment();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,crimeFragment).commit();
-
-            //Intent intent = new Intent(this, ProfileScreen.class);
-//            this.startActivity(intent);
-
-            BookingFragment bookingFragment =new BookingFragment();
 
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, bookingFragment).commit();
-            title = "Passes";
+//            BookingFragment bookingFragment =new BookingFragment();
+//
+//
+//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, bookingFragment).commit();
+//            title = "Bookings";
+
+            DailySummaryReport dailySummaryReport =new DailySummaryReport();
+
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, dailySummaryReport).commit();
+            title = "Sales Reports";
+
+
 
 
 
         }
 
 
-        else if(position==3)
+        else if(position==2)
         {
 //            DocumentaryFragment documentaryFragment=new DocumentaryFragment();
 //            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,documentaryFragment).commit();
@@ -232,7 +208,18 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
             ProfileScreenFragment profileScreenFragment =new ProfileScreenFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id, profileScreenFragment).commit();
 
-            title = "Me";
+            title = "QRCode";
+        }
+
+        else if(position==3)
+        {
+
+            OffersFragment offersScreenFragment =new OffersFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, offersScreenFragment).commit();
+
+            title = "Chart";
+
+
         }
 
         updateToolbarText(title);
@@ -248,37 +235,9 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
 
 
-    private void displayFirebaseRegId() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-        String regId = pref.getString("regId", null);
-
-        Log.e(TAG, "Firebase reg id: " + regId);
 
 
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // register GCM registration complete receiver
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.REGISTRATION_COMPLETE));
-
-        // register new push message receiver
-        // by doing this, the activity will be notified each time a new message arrives
-        LocalBroadcastManager.getInstance(this).registerReceiver(mRegistrationBroadcastReceiver,
-                new IntentFilter(Config.PUSH_NOTIFICATION));
-
-        // clear the notification area when the app is opened
-        NotificationUtils.clearNotifications(getApplicationContext());
-    }
-
-    @Override
-    protected void onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
-        super.onPause();
-    }
 
     protected void displayTuto() {
         TutoShowcase.from(this)

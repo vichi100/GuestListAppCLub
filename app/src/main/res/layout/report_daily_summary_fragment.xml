@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+    android:background="@color/white"
+android:layout_height="match_parent">
+
+<LinearLayout
+    android:id="@+id/lx"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top|center"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/mon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="MON"
+        android:clickable="true"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Tue"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="TUE"
+        android:clickable="true"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Wed"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="WED"
+        android:clickable="true"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Thu"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="THU"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Fri"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="FRI"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Sat"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="SAT"
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Sun"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:text="SUN"
+        android:textColor="@color/white"/>
+</LinearLayout>
+
+    <TextView
+        android:id="@+id/todaydate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textColor="#f9a825"
+        android:layout_below="@id/lx"/>
+
+
+    <LinearLayout
+        android:id="@+id/countDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="15dp"
+        android:layout_below="@id/todaydate">
+
+        <TextView
+            android:id="@+id/tablev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="TABLE : "
+            android:textColor="#c711d7"/>
+
+        <TextView
+            android:id="@+id/tablecount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#0c1ddc"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text=" | "
+            android:textColor="#212121"/>
+
+        <TextView
+            android:id="@+id/passv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="PASS : "
+            android:textColor="#c711d7"/>
+        <TextView
+            android:id="@+id/passcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#0c1ddc"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text=" | "
+            android:textColor="#212121"/>
+        <TextView
+            android:id="@+id/guestlistv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="GUESTLIST : "
+            android:textColor="#c711d7"/>
+        <TextView
+            android:id="@+id/guestlistcount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#0c1ddc"/>
+
+
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/chartlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_below="@id/todaydate">
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:id="@+id/chart1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="50dp"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

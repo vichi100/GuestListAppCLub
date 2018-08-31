@@ -151,7 +151,7 @@ public class QRCodeActivity extends AppCompatActivity {
             final String cost = intent.getStringExtra(Constants.COST);
             final String size = intent.getStringExtra(Constants.TABLE_SIZE);
             final String details = intent.getStringExtra(Constants.DETAILS);
-            String entry = "Table For "+size+ " with full cover of Rs"+cost;
+            String entry = details;//"Table For "+size+ " with full cover of Rs"+cost;
             entrytv.setText(entry);
 
             remainingAmtTv.setText("Rs "+remainingAmt+" Need to Pay At Club");

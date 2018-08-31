@@ -10,7 +10,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.application.club.guestlist.MainActivity;
 import com.squareup.picasso.Picasso;
 import com.application.club.guestlist.R;
 import com.application.club.guestlist.paytm.BuyFromPaytm;
@@ -31,7 +33,7 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
     boolean orderBooked = false;
     boolean isTicketBooked = false;
     boolean isrecivedData = false;
-    String tableDiscount = "0";
+    //String tableDiscount = "0";
 
 
     @Override
@@ -43,12 +45,15 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
         Button button = (Button) findViewById(R.id.done);
         Intent intent = getIntent();
         final String date  = intent.getStringExtra(Constants.EVENTDATE);
+        final String tableNumber  = intent.getStringExtra(Constants.TABLE_NUMBER);
+        final String tableId  = intent.getStringExtra(Constants.TABLE_ID);
+        final String tableType  = intent.getStringExtra(Constants.TABLE_TYPE);
         final String cost = intent.getStringExtra(Constants.COST);
         final String size = intent.getStringExtra(Constants.TABLE_SIZE);
         final String details = intent.getStringExtra(Constants.DETAILS);
         final String clubName = intent.getStringExtra(Constants.CLUB_NAME);
         final String clubId = intent.getStringExtra(Constants.CLUB_ID);
-        tableDiscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
+        //tableDiscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
         final String imageURL = intent.getStringExtra(Constants.IMAGE_URL);
 
         String imgURL = Constants.HTTP_URL+imageURL;
@@ -61,13 +66,17 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
         TextView costtv =  (TextView) findViewById(R.id.costValue);
 
         int costInt = Integer.parseInt(cost);
-        if(tableDiscount != null && !tableDiscount.equalsIgnoreCase("0")){
-            costInt = costInt - (costInt * Integer.parseInt(tableDiscount)/100);
-            costtv.setText("Rs "+costInt+" FULL COVER AFETR "+tableDiscount+"% DISCOUNT");
-        }else{
-            tableDiscount = "0";
-            costtv.setText("Rs "+costInt+" FULL COVER");
-        }
+        costtv.setText("Rs "+costInt+" FULL COVER");
+//        if(tableDiscount != null && !tableDiscount.equalsIgnoreCase("0")){
+//            costInt = costInt - (costInt * Integer.parseInt(tableDiscount)/100);
+//            costtv.setText("Rs "+costInt+" FULL COVER AFETR "+tableDiscount+"% DISCOUNT");
+//        }else{
+//            tableDiscount = "0";
+//            costtv.setText("Rs "+costInt+" FULL COVER");
+//        }
+
+//        TextView tableNumberValue = (TextView) findViewById(R.id.tableNumberValue);
+//        tableNumberValue.setText(tableNumber);
 
 
         TextView datetv = (TextView) findViewById(R.id.date);
@@ -78,7 +87,8 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
         TextView sizetv =  (TextView) findViewById(R.id.guestCountValue);
         sizetv.setText(size);
         TextView detailstv =  (TextView) findViewById(R.id.detailsValue);
-        detailstv.setText(details);
+        final String detailsx = tableType+", Table No. "+tableNumber+"; "+details;
+        detailstv.setText(detailsx);// VIP, Table No 15 for 12 guest
 
         TextView bookingAmttv =  (TextView) findViewById(R.id.bookingAmountValue);
 
@@ -117,7 +127,8 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
                 intent.putExtra(Constants.EVENTDATE, date);
                 intent.putExtra(Constants.COST, Integer.toString(fullAmount));
                 intent.putExtra(Constants.REMAINING_AMOUNT, Integer.toString(restAmount));
-                intent.putExtra(Constants.DETAILS, details);
+                String allDetails = tableType+", Table No. "+tableNumber+" for "+size+" guest ; "+details;//// VIP, Table No 15 for 12 guest
+                intent.putExtra(Constants.DETAILS, allDetails);
                 intent.putExtra(Constants.TABLE_SIZE, size);
                 long time= System.currentTimeMillis();
                 final String qrNumber = Long.toString(time);
@@ -134,9 +145,9 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
                     String customerId = null;
                     if (settings.getString("logged", "").toString().equals("logged")) {
 
-                        custmerName = settings.getString("name","");
-                        custmerMobile = settings.getString("mobile","");
-                        customerId = settings.getString(Constants.CUSTOMERID,"");
+                        custmerName = settings.getString("clubname","");
+                        //custmerMobile = settings.getString("mobile","");
+                        customerId = settings.getString("clubid","");
 
                     }
 
@@ -144,13 +155,13 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
                     JSONObject ticketBookingDetails = new JSONObject();
                     ticketBookingDetails.put("action", "inserOrderDetails");
                     ticketBookingDetails.put(Constants.TICKETTYPE, "table");
-                    ticketBookingDetails.put(Constants.TICKET_DETAILS, tableDetails);
+                    ticketBookingDetails.put(Constants.TICKET_DETAILS, detailsx);
                     ticketBookingDetails.put(Constants.EVENTDATE, date);
                     ticketBookingDetails.put(Constants.CLUB_ID, clubId);
                     ticketBookingDetails.put(Constants.CLUB_NAME, clubName);
                     ticketBookingDetails.put(Constants.QRNUMBER, qrNumber);
                     ticketBookingDetails.put(Constants.CUSTOMERNAME, custmerName);
-                    ticketBookingDetails.put(Constants.MOBILE, custmerMobile);
+                    ticketBookingDetails.put(Constants.MOBILE, customerId);
                     ticketBookingDetails.put(Constants.CUSTOMERID, customerId);
                     ticketBookingDetails.put(Constants.COST, cost);
 
@@ -158,13 +169,15 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
 
                     ticketBookingDetails.put(Constants.PAID_AMOUNT, Integer.toString(paidAmount));
                     ticketBookingDetails.put(Constants.REMAINING_AMOUNT, Integer.toString(restAmount));
-                    ticketBookingDetails.put(Constants.DISCOUNT, tableDiscount);
+                   // ticketBookingDetails.put(Constants.DISCOUNT, tableDiscount);
+                    ticketBookingDetails.put(Constants.TABLE_ID, tableId);
 
 
 
 
-                    BuyFromPaytm buyFromPaytm = new BuyFromPaytm(TableConfirmationActivity.this);
-                    buyFromPaytm.generateCheckSum(Integer.toString(costIntx), qrNumber, customerId);
+
+//                    BuyFromPaytm buyFromPaytm = new BuyFromPaytm(TableConfirmationActivity.this);
+//                    buyFromPaytm.generateCheckSum(Integer.toString(costIntx), qrNumber, customerId);
 
 
 
@@ -179,7 +192,18 @@ public class TableConfirmationActivity extends AppCompatActivity implements Even
                     SystemClock.sleep(1000);
                 }
 
-                startActivity(intent);
+                if(isTicketBooked){
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(TableConfirmationActivity.this, "Sorry! Table is Not Available Now, Try Another Table",	Toast.LENGTH_LONG).show();
+                    Intent myIntent = new Intent(TableConfirmationActivity.this,
+                            MainActivity.class);
+                    startActivity(myIntent);
+
+                    finish();
+                }
+
+
             }
         });
 

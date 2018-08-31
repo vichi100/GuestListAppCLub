@@ -1,0 +1,29 @@
+------------- http server -------
+https://www.vultr.com/docs/how-to-install-apache-mysql-and-php-on-centos-6
+https://www.digitalocean.com/community/questions/how-to-install-mcrypt-php-extension-on-centos-7-0-x64 (imp install this)
+
+# install EPEL with yum
+yum -y install epel-release
+# install php-mcrypt
+yum -y install php-mcrypt
+
+
+
+--- start paytm server
+    service httpd restart
+--- check if server running
+http://198.167.140.169/paytm/
+http://199.180.133.121/paytm/
+
+
+http://199.180.133.121/imagemap/imagemap.html
+
+
+
+
+/etc/httpd/conf/httpd.conf
+DocumentRoot "/var/www"
+
+
+http://198.167.140.40:3000/root/home/PaytmChecksum/index.js
+

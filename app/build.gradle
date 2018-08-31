@@ -4,13 +4,12 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 27
     buildToolsVersion '27.0.3'
-
     defaultConfig {
-        applicationId "com.application.club.guestlist"
-        minSdkVersion 15
+        applicationId 'com.application.club.guestlistAppClub'
+        minSdkVersion 19
         targetSdkVersion 27
-        versionCode 15
-        versionName "15.0"
+        versionCode 16
+        versionName "16.0"
     }
     buildTypes {
         release {
@@ -18,19 +17,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
     aaptOptions {
         cruncherEnabled = false
+    }
+    defaultConfig {
+
+        multiDexEnabled true
+    }
+    productFlavors {
     }
 }
 
 
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:27.0.0'
-    compile 'com.android.support:design:27.0.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
     compile 'com.aurelhubert:ahbottomnavigation:2.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.google.firebase:firebase-messaging:10.2.1'
@@ -46,7 +50,12 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     compile 'com.github.deano2390:MaterialShowcaseView:1.2.0'
     compile 'com.github.florent37:tutoshowcase:1.0.1'
-
+    implementation 'com.google.android.gms:play-services-vision:10.2.1'
+    compile 'com.github.Lukle:ClickableAreasImages:v0.1'
+    implementation 'com.github.AnyChart:AnyChart-Android:0.3.0'
+    compile 'cn.weidongjian.android:popupWindowHelper:0.5'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
 
 

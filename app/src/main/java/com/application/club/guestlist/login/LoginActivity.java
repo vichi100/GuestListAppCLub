@@ -15,6 +15,7 @@ import com.application.club.guestlist.offer.OfferDisplayActivity;
 import com.application.club.guestlist.service.EventListener;
 import com.application.club.guestlist.service.SocketOperator;
 import com.application.club.guestlist.utils.Constants;
+import com.application.club.guestlist.utils.UtillMethods;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -47,8 +48,7 @@ import java.text.DateFormat;
  */
 
 public class LoginActivity extends  AppCompatActivity
-        implements LocationListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener,  EventListener {
+        implements EventListener {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -58,7 +58,8 @@ public class LoginActivity extends  AppCompatActivity
 
     boolean isCustomerCreated = false;
 
-    boolean startMainActivityFlag = true;
+    boolean startMainActivityFlag = false;
+    boolean isGetResponseFromDB = false;
 
     String customerId = null;
 
@@ -69,25 +70,17 @@ public class LoginActivity extends  AppCompatActivity
 
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
 
+    JSONObject eventDetailsObj;
+
+    String eventDate;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
-        mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(5*60*1000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setSmallestDisplacement(1000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .build();
-
-
+        eventDate = UtillMethods.getTodayDate();
 
         /*
          * Check if we successfully logged in before.
@@ -96,55 +89,58 @@ public class LoginActivity extends  AppCompatActivity
         SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
 
         if (settings.getString("logged", "").toString().equals("logged")) {
+            String clubname = settings.getString("clubname","");
+            String clubid = settings.getString("clubid","");
+            String password = settings.getString("password","");
+            try{
+                JSONObject customerDetails = new JSONObject();
+                customerDetails.put("action", "clubLogindDataAndValidation");
+                customerDetails.put(Constants.CLUB_NAME, clubname);
+                customerDetails.put(Constants.CLUB_ID, clubid);
+                customerDetails.put(Constants.PASSWORD, password);
+                customerDetails.put(Constants.EVENT_DATE, eventDate);
 
-            Bundle bundle = getIntent().getExtras();
-            Intent intentOffer = new Intent(this, OfferDisplayActivity.class);
-            if (bundle != null) {
-                boolean startOfferActivity = false;
-                for (String key : bundle.keySet()) {
-                    Object value = bundle.get(key);
-                    Log.d(TAG, "Key: " + key + " Value: " + value.toString());
-                    intentOffer.putExtra(key, value.toString());
-                    if(key.equalsIgnoreCase("clubid")){
-                        startOfferActivity = true;
-                        startMainActivityFlag = false;
-                    }
+                socketOperator.sendMessage(customerDetails);
 
-
-                }
-                if(startOfferActivity == true){
-                    intentOffer.putExtra(Constants.IS_NOTIFICATION, "notification");
-                    startActivity(intentOffer);
+                while(!isGetResponseFromDB){
+                    SystemClock.sleep(1000);
                 }
 
+            }catch (Exception ex){
+                ex.printStackTrace();
             }
-
 
             if(startMainActivityFlag){
 
-                Intent intent = new Intent(LoginActivity.this,
-                        MainActivity.class);
-                String custmerName = settings.getString("name","");
-                String custmerMobile = settings.getString("mobile","");
-                intent.putExtra(Constants.CUSTOMERNAME, custmerName);
-                intent.putExtra(Constants.MOBILE, custmerMobile);
-                startActivity(intent);
+                try{
+
+                    Intent intent = new Intent(LoginActivity.this,
+                            MainActivity.class);
+                    //SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString(Constants.DJ_NAME, eventDetailsObj.getString(Constants.DJ_NAME));
+                    editor.putString(Constants.MUSIC, eventDetailsObj.getString(Constants.MUSIC));
+                    editor.commit();
+
+//                    intent.putExtra(Constants.CLUB_NAME, eventDetailsObj.getString(Constants.CLUB_NAME));
+//                    intent.putExtra(Constants.CLUB_ID, clubid);
+//                    intent.putExtra(Constants.DJ_NAME, eventDetailsObj.getString(Constants.DJ_NAME));
+//                    intent.putExtra(Constants.MUSIC, eventDetailsObj.getString(Constants.MUSIC));
+//                    intent.putExtra(Constants.EVENT_DATE, eventDate);
+                    startActivity(intent);
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+
+
+
+            }else{
+                Toast.makeText(LoginActivity.this, "Password is expired, please contact support!", Toast.LENGTH_LONG).show();
 
             }
 
-
-
-
-
         }
-
-
-
-
-
-
-
-
         // Locate the button in activity_main.xml
         button = (Button) findViewById(R.id.next);
 
@@ -152,18 +148,21 @@ public class LoginActivity extends  AppCompatActivity
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                EditText cname = (EditText) findViewById(R.id.cname);
-                final String name = cname.getText().toString();
-                final EditText cmobile = (EditText) findViewById(R.id.cmobile);
-                final String mobile = cmobile.getText().toString();
-                EditText ccmobile = (EditText) findViewById(R.id.ccmobile);
-                final String confirmMobile = ccmobile.getText().toString();
+                EditText clubnametv = (EditText) findViewById(R.id.cname);
+                final String clubname = clubnametv.getText().toString();
+                EditText clubidtv = (EditText) findViewById(R.id.clubid);
+                final String clubid = clubidtv.getText().toString();
+                final EditText passwordtv = (EditText) findViewById(R.id.cmobile);//password
+                final String password = passwordtv.getText().toString();
+                EditText confirmPasswordtv = (EditText) findViewById(R.id.ccmobile);//confirm password
+                final String confirmPassword = confirmPasswordtv.getText().toString();
 
-                if(null != name && !name.trim().equalsIgnoreCase("")) {
+                if((null != clubname && !clubname.trim().equalsIgnoreCase("")
+                        && null != clubid && !clubid.trim().equalsIgnoreCase(""))) {
 
-                    if (null != mobile && mobile.trim().length() >= 10) {
+                    if (null != password && password.trim().length() >= 1) {
 
-                        if (null != confirmMobile && confirmMobile.trim().length() >= 10 && mobile.equalsIgnoreCase(confirmMobile)) {
+                        if (null != confirmPassword && confirmPassword.trim().length() >= 1 && password.equalsIgnoreCase(confirmPassword)) {
 
 
                             /*
@@ -173,19 +172,17 @@ public class LoginActivity extends  AppCompatActivity
                              */
                             try{
 
-                                CheckBox chkBox = (CheckBox) findViewById(R.id.chkIos);
-                                if(!chkBox.isChecked()){
-                                    Toast.makeText(LoginActivity.this, "Please confirm your age is 21", Toast.LENGTH_LONG).show();
-                                    return;
-                                }
+
                                 JSONObject customerDetails = new JSONObject();
-                                customerDetails.put("action", "createNewCustomer");
-                                customerDetails.put(Constants.CUSTOMERNAME, name);
-                                customerDetails.put(Constants.MOBILE, confirmMobile);
+                                customerDetails.put("action", "clubLogindDataAndValidation");
+                                customerDetails.put(Constants.CLUB_NAME, clubname);
+                                customerDetails.put(Constants.CLUB_ID, clubid);
+                                customerDetails.put(Constants.PASSWORD, confirmPassword);
+                                customerDetails.put(Constants.EVENT_DATE, eventDate);
 
                                 socketOperator.sendMessage(customerDetails);
 
-                                while(!isCustomerCreated){
+                                while(!isGetResponseFromDB){
                                     SystemClock.sleep(1000);
                                 }
 
@@ -194,37 +191,37 @@ public class LoginActivity extends  AppCompatActivity
                             }catch (Exception ex){
                                 ex.printStackTrace();
                             }
+                            if(startMainActivityFlag){
+                                SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
+                                SharedPreferences.Editor editor = settings.edit();
+                                editor.putString("logged", "logged");
+                                editor.putString("clubname", clubname);
+                                editor.putString("clubid", clubid);
+                                editor.putString("password", confirmPassword);
+                                editor.commit();
+
+                                Intent intent = new Intent(LoginActivity.this,
+                                        MainActivity.class);
+                                startActivity(intent);
 
 
-                            SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
-                            SharedPreferences.Editor editor = settings.edit();
-                            editor.putString("logged", "logged");
-                            editor.putString("name", name);
-                            editor.putString("mobile", confirmMobile);
-                            editor.putString(Constants.CUSTOMERID, customerId);
-                            editor.commit();
+                            }else{
+                                Toast.makeText(LoginActivity.this, "Network is not working or very slow !", Toast.LENGTH_LONG).show();
 
+                            }
 
-
-                            Intent intent = new Intent(LoginActivity.this,
-                                    SelectCityActivity.class);
-
-//                            intent.putExtra(Constants.CUSTOMERNAME, name);
-//                            intent.putExtra(Constants.MOBILE, mobile);
-
-                            startActivity(intent);
 
                         }else{
-                            Toast.makeText(LoginActivity.this, "Mobile Number are not matching!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Password are not matching !", Toast.LENGTH_LONG).show();
                         }
 
 
                     }else{
-                        Toast.makeText(LoginActivity.this, "Pleae Enter Correct Mobile Number !", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Pleae Enter Password Number !", Toast.LENGTH_LONG).show();
                     }
 
                 }else{
-                    Toast.makeText(LoginActivity.this, "Pleae Enter Name !", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Pleae Enter Club Name and Club Id !", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -237,151 +234,44 @@ public class LoginActivity extends  AppCompatActivity
         // conver message to list
         if(message != null){
 
+
+
             try{
-                if(message != null){
-                    JSONObject customerIdjObj = new JSONObject(message);
-                    customerId = customerIdjObj.getString(Constants.CUSTOMERID);
-
-                    isCustomerCreated = true;
+                JSONObject eventJObjX = new JSONObject(message);
+                eventDetailsObj = eventJObjX.getJSONObject("eventDetailsObj");
+                String isSuccess = eventJObjX.getString("passwordCheckingDone");
+                if(!isSuccess.equalsIgnoreCase("fail")){
+                    startMainActivityFlag = true;
+                }else{
+                    startMainActivityFlag = false;
                 }
-
-
+                isGetResponseFromDB = true;
 
             }catch (Exception ex){
                 ex.printStackTrace();
 
             }
 
+//            try{
+//                if(message != null){
+//                    isGetResponseFromDB = true;
+//                    if(message.equalsIgnoreCase("success")){
+//                        startMainActivityFlag = true;
+//                    }else{
+//                        startMainActivityFlag = false;
+//                    }
+//
+//                }
+//
+//
+//
+//            }catch (Exception ex){
+//                ex.printStackTrace();
+//
+//            }
+
         }
     }
 
 
-    @Override
-    protected void onStart() {
-        mGoogleApiClient.connect();
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        mGoogleApiClient.disconnect();
-        super.onStop();
-        //Toast.makeText(LoginActivity.this, "latlong: "+latlong, Toast.LENGTH_LONG).show();
-    }
-
-//    @Override
-//    protected void onPause() {
-//        ((LocationManager)getSystemService(Context.LOCATION_SERVICE)).removeUpdates(this);
-//        super.onPause();
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        ((LocationManager)getSystemService(Context.LOCATION_SERVICE))
-//                .requestLocationUpdates(LocationManager.GPS_PROVIDER, 5 , 1, this);
-//        super.onResume();
-//    }
-
-
-    @Override
-    public void onLocationChanged(Location location) {
-        if (location != null) {
-//            String strLocation =
-//                    DateFormat.getTimeInstance().format(location.getTime()) + "\n" +
-//                            "Latitude=" + location.getLatitude() + "\n" +
-//                            "Longitude=" + location.getLongitude();
-//
-//            textAutoUpdateLocation.setText(strLocation);
-
-            latlong = location.getLatitude()+","+location.getLongitude();
-//            SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
-//
-//            SharedPreferences.Editor editor = settings.edit();
-//            editor.putString("latlong", latlong);
-//
-//            editor.commit();
-//
-//            Toast.makeText(LoginActivity.this, "latlong: "+latlong, Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            ActivityCompat.requestPermissions(LoginActivity.this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
-
-
-
-            return;
-        }
-        LocationServices.FusedLocationApi.requestLocationUpdates(
-                mGoogleApiClient, mLocationRequest, this);
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            // here we go you can see current lat long.
-//            Log.e(TAG, "onConnected: " + String.valueOf(mLastLocation.getLatitude()) + ":" + String.valueOf(mLastLocation.getLongitude()));
-//            Toast.makeText(LoginActivity.this,
-//                    "permission was granted, :)"+"onConnected: " + String.valueOf(mLastLocation.getLatitude()) + ":" + String.valueOf(mLastLocation.getLongitude()),
-//                    Toast.LENGTH_LONG).show();
-
-        }
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(LoginActivity.this,
-//                            "permission was granted, :)",
-//                            Toast.LENGTH_LONG).show();
-
-                    try{
-                        LocationServices.FusedLocationApi.requestLocationUpdates(
-                                mGoogleApiClient, mLocationRequest, this);
-                    }catch(SecurityException e){
-                        Toast.makeText(LoginActivity.this,
-                                "SecurityException:\n" + e.toString(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(LoginActivity.this,
-                            "permission denied, ...:(",
-                            Toast.LENGTH_LONG).show();
-                }
-                return;
-            }
-        }
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(LoginActivity.this,
-                "onConnectionFailed: \n" + connectionResult.toString(),
-                Toast.LENGTH_LONG).show();
-    }
 }

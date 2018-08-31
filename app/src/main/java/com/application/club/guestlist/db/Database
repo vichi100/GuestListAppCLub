@@ -33,6 +33,43 @@ godady email pw : meriMaa29071979#
 bluehost:
 meriMaa290779#
 
+
+###### mysql local mac ####
+user: root
+pw :   vichi123
+
+
+port: 3306
+
+vichis-MacBook-Air:~ root# apachectl restart
+
+sudo su -
+export PATH=/usr/local/mysql/bin:$PATH
+
+location usr/local/mysql
+
+sudo su -
+
+appache dir :
+
+/Library/WebServer/Documents/imagemap
+
+sudo vim /etc/apache2/httpd.conf
+# DocumentRoot: The directory out of which you will serve your
+# documents. By default, all requests are taken from this directory, but
+# symbolic links and aliases may be used to point to other locations.
+#
+DocumentRoot "/Library/WebServer/Documents"
+<Directory "/Library/WebServer/Documents">
+    #...
+</Directory>
+
+
+
+scp root@199.180.133.121:/var/www/guestlist/imagemap/layoutimage /Users/vichi/
+
+
+
 #### App store #####
 
 id : vichi
@@ -448,3 +485,84 @@ update offers set date = '23/Jul/2018' and starttime =  '23/Jul/2018 12:00:00' a
 update offers set date = '23/Jul/2018' and starttime =  '23/Jul/2018 12:00:00' and  timetoexpire = '27/Jul/2018 20:00:00' where clubid = '100009'
 
 update offers set date = '23/Jul/2018' where clubid = '100009';
+
+
+CREATE TABLE tablesdata (clubid VARCHAR(50), clubname VARCHAR(50), tableid VARCHAR(50), tablenumber VARCHAR(5), details VARCHAR(300), tabletype VARCHAR(50),
+size VARCHAR(10), cost VARCHAR(50), coords VARCHAR(100), layoutURL VARCHAR(500),
+eventdate VARCHAR(50), booked VARCHAR(20));
+
+
+INSERT INTO tablesdata ( clubid, clubname,tableid, tablenumber, details, tabletype, size, cost, coords, layoutURL, eventdate, booked)
+VALUES
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '26/Aug/2018', 'booked'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '26/Aug/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '26/Aug/2018', 'booked'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '26/Aug/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '26/Aug/2018', 'available');
+
+
+
+
+
+
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '12', 'personal service', 'VIP', '4', '20000', '462', '287', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '13', 'personal service', 'VIP', '10', '50000', '415', '90', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '2', '5000', '151', '193', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no');
+
+
+
+172.20.10.8
+
+http://localhost/
+
+http://172.20.10.8/
+
+
+<php>
+<?php
+$con=mysqli_connect("172.20.10.8:3306","root","vichi123","club");
+
+// Check connection
+if (mysqli_connect_errno($con))
+{
+echo "Failed to connect to MySQL:" . mysqli_connect_error();
+}else {
+echo "Connected to MySql Test DB";
+}
+
+mysqli_close($con);
+?>
+
+
+CREATE TABLE clubdatalogin (clubname VARCHAR(50),
+  clubid VARCHAR(20), password VARCHAR(200));
+
+ INSERT INTO bookingdetails ( cutomername, mobile,  customerId, clubname, clubid, QRnumber,
+ tickettype, eventDate, cost, costafterdiscount, paidamount, remainingamount, discount, ticketDetails, bookingDate, bookingtime)
+ VALUES  ( 't3', '99999' , '99999', 'True Tramm Trunk', '99999' , '1534935641374', '' ,'' , '' , '', '', '', '', '', '', '');
+
+
+############################
+
+update ticketdetails set date = '26/Aug/2018' where date='20/Aug/2018';
+update ticketdetails set date = '27/Aug/2018' where date='21/Aug/2018';
+update ticketdetails set date = '29/Aug/2018' where date='22/Aug/2018';
+update ticketdetails set date = '30/Aug/2018' where date='23/Aug/2018';
+update ticketdetails set date = '31/Aug/2018' where date='24/Aug/2018';
+update ticketdetails set date = '01/Sep/2018' where date='25/Aug/2018';
+
+update tablesdata set eventdate = '26/Aug/2018' where eventdate='22/Aug/2018';
+update tablesdata set eventdate = '27/Aug/2018' where eventdate='23/Aug/2018';
+update tablesdata set eventdate = '29/Aug/2018' where eventdate='24/Aug/2018';
+update tablesdata set eventdate = '30/Aug/2018' where eventdate='25/Aug/2018';
+update tablesdata set eventdate = '01/Sep/2018' where eventdate='26/Aug/2018';
+
+update tablesdata set eventdate = '26/Aug/2018'  where eventdate='01/Sep/2018';
+
+------$$$$$$$$$$$$$$$$$$$----------
+
+
+CREATE TABLE PRDetailsTable (name, id, mobile, clubid, clubname, city, rating)
+
+CREATE TABLE PREventDetailsTable (eventid, eventdate, clubid, clubname, city, guestlistcount, passcountforcouple, passcostforcouple,
+passcountforgals, passcostforgals, stagcount, stagcost, tablecoststartfrom, tablecostupto, imageURL, djname, eventtype, music )

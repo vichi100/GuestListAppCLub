@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#2d2b2b">
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="#535252"
+        android:divider="#2b292a"
+        android:dividerHeight="15dp">
+
+    </ListView>
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center|bottom"
+            android:background="#535252"
+            android:layout_alignBottom="@android:id/list">
+
+            <TextView
+                android:id="@+id/count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Count"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:padding="2dp"
+                android:textColor="#dca15d"
+                />
+            <TextView
+                android:id="@+id/totalbooked"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#5c89e4"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:layout_alignBaseline="@+id/qrNumber"/>
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+</FrameLayout>

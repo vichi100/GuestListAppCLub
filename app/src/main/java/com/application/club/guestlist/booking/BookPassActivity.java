@@ -71,15 +71,15 @@ public class BookPassActivity extends AppCompatActivity implements QuantityView.
         final String clubName  = intent.getStringExtra(CLUB_NAME);
         final String clubidx  = intent.getStringExtra(Constants.CLUB_ID);
         final String date = intent.getStringExtra(Constants.EVENTDATE);
-        passDiscount = intent.getStringExtra(Constants.PASS_DISCOUNT);
+        //passDiscount = intent.getStringExtra(Constants.PASS_DISCOUNT);
 
-        if(passDiscount!= null && !passDiscount.equalsIgnoreCase("0")){
-            TextView tv = (TextView) findViewById(R.id.passdiscountNote);
-            tv.setText(passDiscount+"% Discount will apply on passes");
-            tv.setVisibility(View.VISIBLE);
-        }else if(passDiscount == null){
-            passDiscount = "0";
-        }
+//        if(passDiscount!= null && !passDiscount.equalsIgnoreCase("0")){
+//            TextView tv = (TextView) findViewById(R.id.passdiscountNote);
+//            tv.setText(passDiscount+"% Discount will apply on passes");
+//            tv.setVisibility(View.VISIBLE);
+//        }else if(passDiscount == null){
+//            passDiscount = "0";
+//        }
 
 
 
@@ -237,9 +237,9 @@ public class BookPassActivity extends AppCompatActivity implements QuantityView.
                     ticketBookingDetails.put(Constants.CLUB_ID, clubidx);
                     ticketBookingDetails.put(Constants.CLUB_NAME, clubName);
                     ticketBookingDetails.put(Constants.QRNUMBER, qrNumber);
-                    ticketBookingDetails.put(Constants.CUSTOMERNAME, custmerName);
+                    ticketBookingDetails.put(Constants.CUSTOMERNAME, clubName);
                     ticketBookingDetails.put(Constants.MOBILE, custmerMobile);
-                    ticketBookingDetails.put(Constants.CUSTOMERID, customerId);
+                    ticketBookingDetails.put(Constants.CUSTOMERID, clubidx);
                     ticketBookingDetails.put(Constants.COST, Integer.toString(costWithoutDiscount));
                     ticketBookingDetails.put(Constants.PAID_AMOUNT, Integer.toString(totalCost));
                     ticketBookingDetails.put(Constants.COSTAFTERDISCOUNT, Integer.toString(totalCost));
@@ -248,8 +248,8 @@ public class BookPassActivity extends AppCompatActivity implements QuantityView.
                     //String todayDate = UtillMethods.getTodayDate();
                     //ticketBookingDetails.put(Constants.BOOKINGDATE, todayDate);
 
-                    BuyFromPaytm buyFromPaytm = new BuyFromPaytm(BookPassActivity.this);
-                    buyFromPaytm.generateCheckSum(Integer.toString(totalCost), qrNumber, customerId);
+//                    BuyFromPaytm buyFromPaytm = new BuyFromPaytm(BookPassActivity.this);
+//                    buyFromPaytm.generateCheckSum(Integer.toString(totalCost), qrNumber, customerId);
 
                     socketOperator.sendMessage(ticketBookingDetails);
 

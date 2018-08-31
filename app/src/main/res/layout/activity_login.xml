@@ -27,7 +27,7 @@
             android:id="@+id/TextInputLayout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_below="@+id/imageView"
             android:textColorHint="#fefefe"
             android:layout_centerHorizontal="true"
@@ -37,7 +37,33 @@
                 android:id="@+id/cname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:hint="Club Name"
+                android:layout_below="@+id/imageView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/TextInputLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/TextInputLayout1"
+            android:textColorHint="#fefefe"
+            android:layout_centerHorizontal="true"
+            >
+
+            <EditText
+                android:id="@+id/clubid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Club Id"
                 android:layout_below="@+id/imageView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -55,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_below="@+id/TextInputLayout1"
+            android:layout_below="@+id/TextInputLayout4"
             android:textColorHint="#fefefe"
             android:layout_centerHorizontal="true"
             >
@@ -64,7 +90,7 @@
                 android:id="@+id/cmobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mobile"
+                android:hint="Password"
                 android:layout_below="@+id/imageView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -72,7 +98,6 @@
                 android:textColor="#FFFFFF"
                 android:maxLines="1"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
                 />
 
         </android.support.design.widget.TextInputLayout>
@@ -85,14 +110,13 @@
             android:layout_below="@+id/TextInputLayout2"
             android:textColorHint="#fefefe"
             android:layout_centerHorizontal="true"
-
             >
 
             <EditText
                 android:id="@+id/ccmobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Confirm Mobile"
+                android:hint="Confirm Password"
                 android:layout_below="@+id/imageView"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -100,33 +124,24 @@
                 android:textColor="#FFFFFF"
                 android:maxLines="1"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
                 />
 
         </android.support.design.widget.TextInputLayout>
 
-        <CheckBox
-            android:layout_marginTop="10dp"
-            android:id="@+id/chkIos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:buttonTint="@color/white"
-            android:text=" I am 21 age"
-            android:textColor="#fefefe"
-            android:layout_below="@+id/TextInputLayout3"/>
+
 
 
         <Button
             android:id="@+id/next"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="NEXT"
+            android:layout_marginTop="10dp"
+            android:text="LOGIN"
             android:background="#FFA000"
             android:textColor="#fefefe"
             android:textSize="20dp"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/chkIos"
+            android:layout_below="@+id/TextInputLayout3"
 
             />
 

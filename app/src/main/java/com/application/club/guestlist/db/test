@@ -106,6 +106,9 @@ https://maps.googleapis.com/maps/api/distancematrix/xml?origins=19.247720,72.850
 
 https://maps.googleapis.com/maps/api/distancematrix/xml?origins=19.247720,72.850071|19.247720,72.850071&destinations=19.0517349,72.83282680000002|19.1092611,72.82559719999995&mode=DRIVING&key=AIzaSyCOqekJA9O2fjhAivTI90gojOMudMfitOU
 
+CREATE TABLE clubdetails (clubid VARCHAR(50) NOT NULL , clubname VARCHAR(50), city VARCHAR(50), location VARCHAR(50),
+    address VARCHAR(200), imageURL VARCHAR(200), videoURL VARCHAR(200), latlong VARCHAR(60), rating VARCHAR(5), PRIMARY KEY (clubid));
+
 
 INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, videoURL, latlong, rating)
      VALUES
@@ -122,7 +125,8 @@ INSERT INTO clubdetails ( clubid, clubname,city, location, address, imageURL, vi
     ('100009','Kitty Su','mumbai','Andheri East','Near Novatel','/images/club/kittysu/kittysu.jpg', '/video/assets/kittysu.mp4', '19.105277,72.87573299999997' ,'4.9');
 
 
-
+CREATE TABLE eventdetails (clubid VARCHAR(50), clubname VARCHAR(50),
+    djname VARCHAR(50), music VARCHAR(200), date VARCHAR(200), imageURL VARCHAR(300));
 
 INSERT INTO eventdetails ( clubid, clubname,djname, music, date, imageURL)
 VALUES
@@ -194,6 +198,10 @@ VALUES
 (	'100009' ,'Kitty Su',	'Chetas',	'Hip-Hop/Bollywood',	'10/Jun/2018','/images/club/kittysu/event/kittysu6.jpg');
 
 
+
+CREATE TABLE ticketdetails (clubid int, clubname VARCHAR(50), type VARCHAR(50), size VARCHAR(3), category VARCHAR(20),
+        cost VARCHAR(10), details VARCHAR(200), Day VARCHAR(15), date VARCHAR(15), totaltickets VARCHAR(3),
+               availbletickets VARCHAR(3));
 
 INSERT INTO ticketdetails ( clubid, clubname,type, size, category, cost, details, Day, date, totaltickets, availbletickets)
 VALUES
@@ -895,3 +903,17 @@ latitude VARCHAR(50), longitude VARCHAR(50) , startdatetime VARCHAR(50), enddate
 
 
 CREATE TABLE availableticket (clubid VARCHAR(50), clubname VARCHAR(50), ticketType , ticketcategory , )
+
+
+CREATE TABLE tables (clubid VARCHAR(50), clubname VARCHAR(50), tableid VARCHAR(50), tablenumber VARCHAR(5), details VARCHAR(300), tabletype VARCHAR(50),
+size VARCHAR(10), cost VARCHAR(50), LocX VARCHAR(50), LocY VARCHAR(50), OHight VARCHAR(50), OWidth VARCHAR(50), layoutURL VARCHAR(500),
+eventdate VARCHAR(50), booked VARCHAR(5));
+
+
+INSERT INTO tables ( clubid, clubname,tableid, tablenumber, details, tabletype, size, cost, LocX, LocY, OHight, OWidth, layoutURL, eventdate, booked)
+VALUES
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '10', 'personal service', 'VIP', '10', '50000', '568', '202', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '11', 'personal service', 'VIP', '4', '20000', '464', '195', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '12', 'personal service', 'VIP', '4', '20000', '462', '287', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '13', 'personal service', 'VIP', '10', '50000', '415', '90', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '2', '5000', '151', '193', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no');
