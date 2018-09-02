@@ -58,6 +58,23 @@ public class UtillMethods {
         return MyDate;
     }
 
+    public static String changeDateFormate(String dateStr){
+        DateFormat inDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        DateFormat outDateFormat = new SimpleDateFormat("dd/MMM/yyyy");
+        Date MyDate=null;
+        String newDateFormat = null;
+        try{
+            MyDate = inDateFormat.parse(dateStr);
+            newDateFormat = outDateFormat.format(MyDate);
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+
+        return newDateFormat;
+    }
+
     public static String getDayFromDate(String date){
         String MyDay = "";
 

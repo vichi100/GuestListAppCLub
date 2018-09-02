@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#231F20">
+
+    <LinearLayout
+        android:id="@+id/clubNameLayoutl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/selimg">
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/eventDateLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.6"
+            android:textColorHint="#fefefe"
+            >
+
+            <EditText
+                android:id="@+id/eventDatetv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Event Date"
+                android:layout_below="@+id/imageView"
+                android:singleLine="true"
+                android:textColor="#FFFFFF"
+                android:maxLines="1"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/datepicker"
+            android:layout_weight="0.4"
+            android:gravity="right"
+            android:id="@+id/datePicker"/>
+
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eventNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/clubNameLayoutl"
+        android:textColorHint="#fefefe"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/eventNametv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Name"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/djLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/eventNameLayout"
+        android:textColorHint="#fefefe"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/djtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DJ Names"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/musicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/djLayout"
+        android:textColorHint="#fefefe"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Music"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+
+
+
+</RelativeLayout>

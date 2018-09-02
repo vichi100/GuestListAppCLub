@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_main"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:background="#231F20"
+>
+
+<RelativeLayout
+    android:id="@+id/mainx"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <TextView
+        android:id="@+id/textview1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#f1eeee"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true"
+        android:text="Click on image to select image"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textview1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="20dp"
+        android:layout_marginBottom="35dp"
+        android:visibility="gone"/>
+
+
+    <LinearLayout
+        android:id="@+id/clubNameLayoutl"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:layout_below="@+id/imageView">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eventDateLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0.6"
+        android:textColorHint="#fefefe"
+        >
+
+        <EditText
+            android:id="@+id/eventDatetv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Date"
+            android:layout_below="@+id/imageView"
+            android:singleLine="true"
+            android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:inputType="date"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/datepicker1"
+            android:layout_weight="0.4"
+            android:layout_marginRight="10dp"
+            android:gravity="right"
+            android:id="@+id/datePicker"/>
+
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/eventNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/clubNameLayoutl"
+        android:textColorHint="#fefefe"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/eventNametv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Event Name"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:imeOptions="actionNext"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/djLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/eventNameLayout"
+        android:textColorHint="#fefefe"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/djtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="DJ Names"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/musicLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/djLayout"
+        android:textColorHint="#fefefe"
+        android:layout_centerHorizontal="true"
+        >
+
+        <EditText
+            android:id="@+id/music"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Music"
+            android:layout_below="@+id/imageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:imeOptions="actionNext"
+            android:nextFocusDown="@+id/next"
+            />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/next"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="UPLOAD"
+        android:background="#FFA000"
+        android:textColor="#fefefe"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/musicLayout"
+        />
+
+
+</RelativeLayout>
+
+</ScrollView>

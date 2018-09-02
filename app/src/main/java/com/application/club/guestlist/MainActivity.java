@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.application.club.guestlist.reports.DailySummaryReport;
+import com.application.club.guestlist.upload.UploadFragment;
 import com.application.club.guestlist.utils.UtillMethods;
 import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -104,21 +105,30 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
     private void createNavItems()
     {
         //CREATE ITEMS
-        AHBottomNavigationItem crimeItem=new AHBottomNavigationItem("Club",R.drawable.pub);
-        AHBottomNavigationItem passItem=new AHBottomNavigationItem("Bookings",R.drawable.ticket3);
+        AHBottomNavigationItem club =new AHBottomNavigationItem("Club",R.drawable.pub);
+        AHBottomNavigationItem charts =new AHBottomNavigationItem("Charts",R.drawable.charts);
+        AHBottomNavigationItem qrcode=new AHBottomNavigationItem("QRCode",R.drawable.qrcode);
+        AHBottomNavigationItem upload =new AHBottomNavigationItem("Upload",R.drawable.upload);
+
+
+        //AHBottomNavigationItem passItem=new AHBottomNavigationItem("Bookings",R.drawable.ticket3);
 
 
         //AHBottomNavigationItem trending=new AHBottomNavigationItem("Trending",R.drawable.trending);
-        AHBottomNavigationItem docsItem=new AHBottomNavigationItem("QRCode",R.drawable.qrcode);
-        AHBottomNavigationItem offer=new AHBottomNavigationItem("Charts",R.drawable.charts);
+
+
+
 
 
         //ADD ITEMS TO BAR
-        bottomNavigation.addItem(crimeItem);
+        bottomNavigation.addItem(club);
+        bottomNavigation.addItem(charts);
+        bottomNavigation.addItem(qrcode);
+        bottomNavigation.addItem(upload);
         //bottomNavigation.addItem(offer);
         //bottomNavigation.addItem(trending);
-        bottomNavigation.addItem(passItem);
-        bottomNavigation.addItem(docsItem);
+        //bottomNavigation.addItem(passItem);
+
 
         //PROPERTIES
         bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#1c1d1d"));
@@ -146,9 +156,72 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
 
             getSupportFragmentManager().beginTransaction().replace(R.id.content_id, clubsListFragment).commit();
+            title = clubName;
 
         }
-//        else if(position==1)
+
+        else if(position==1)
+        {
+
+            DailySummaryReport dailySummaryReport =new DailySummaryReport();
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, dailySummaryReport).commit();
+            title = "Chart";
+
+        }
+
+
+        else if(position==2)
+        {
+            ProfileScreenFragment profileScreenFragment =new ProfileScreenFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, profileScreenFragment).commit();
+
+            title = "QRCode";
+        }
+
+        else if(position==3)
+        {
+
+            UploadFragment uploadFragment =new UploadFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, uploadFragment).commit();
+
+            title = "Upload";
+
+
+        }
+//        else if(position==4)
+//        {
+//
+////            DocumentaryFragment documentaryFragment=new DocumentaryFragment();
+////            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,documentaryFragment).commit();
+////            CrimeFragment crimeFragment=new CrimeFragment();
+////            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,crimeFragment).commit();
+//
+//            //Intent intent = new Intent(this, ProfileScreen.class);
+////            this.startActivity(intent);
+//
+//
+//
+//
+//
+////            BookingFragment bookingFragment =new BookingFragment();
+////
+////
+////            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, bookingFragment).commit();
+////            title = "Bookings";
+//
+//            DailySummaryReport dailySummaryReport =new DailySummaryReport();
+//
+//
+//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, dailySummaryReport).commit();
+//            title = "Upload";
+//
+//
+//
+//
+//
+//        }
+        //        else if(position==1)
 //        {
 //
 //            OffersFragment offersScreenFragment =new OffersFragment();
@@ -169,58 +242,6 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 //
 //
 //        }
-        else if(position==1)
-        {
-
-
-//            BookingFragment bookingFragment =new BookingFragment();
-//
-//
-//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, bookingFragment).commit();
-//            title = "Bookings";
-
-            DailySummaryReport dailySummaryReport =new DailySummaryReport();
-
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, dailySummaryReport).commit();
-            title = "Sales Reports";
-
-
-
-
-
-        }
-
-
-        else if(position==2)
-        {
-//            DocumentaryFragment documentaryFragment=new DocumentaryFragment();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,documentaryFragment).commit();
-//            CrimeFragment crimeFragment=new CrimeFragment();
-//            getSupportFragmentManager().beginTransaction().replace(R.id.content_id,crimeFragment).commit();
-
-            //Intent intent = new Intent(this, ProfileScreen.class);
-//            this.startActivity(intent);
-
-
-
-
-            ProfileScreenFragment profileScreenFragment =new ProfileScreenFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, profileScreenFragment).commit();
-
-            title = "QRCode";
-        }
-
-        else if(position==3)
-        {
-
-            OffersFragment offersScreenFragment =new OffersFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_id, offersScreenFragment).commit();
-
-            title = "Chart";
-
-
-        }
 
         updateToolbarText(title);
         return true;

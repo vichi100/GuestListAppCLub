@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId 'com.application.club.guestlistAppClub'
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 22
         versionCode 16
         versionName "16.0"
     }
@@ -56,6 +56,11 @@ dependencies {
     compile 'cn.weidongjian.android:popupWindowHelper:0.5'
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    compile 'com.koushikdutta.async:androidasync:2.+'
+    compile 'com.koushikdutta.ion:ion:2.+'
+    compile ('com.wdullaer:materialdatetimepicker:3.6.3') {
+        exclude group: 'com.android.support'
+    }
 }
 
 
