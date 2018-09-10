@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
     String clubName;
     String djName;
     String music;
+    String eventDate;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-//        Intent intent = getIntent();
+        Intent intent = getIntent();
 //        clubid  = intent.getStringExtra(Constants.CLUB_ID);
 //        clubName  = intent.getStringExtra(Constants.CLUB_NAME);
 //        djName = intent.getStringExtra(Constants.DJ_NAME);
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
         clubid = settings.getString("clubid","");
         djName = settings.getString(Constants.DJ_NAME,"");
         music = settings.getString(Constants.MUSIC,"");
+        eventDate = intent.getStringExtra(Constants.EVENT_DATE);
 
 
         bottomNavigation= (AHBottomNavigation) findViewById(R.id.myBottomNavigation_ID);
@@ -80,14 +82,14 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
 
 
 
-        Bundle bundle = getIntent().getExtras();
-
-        if (bundle != null) {
-            for (String key : bundle.keySet()) {
-                Object value = bundle.get(key);
-                Log.d(TAG, "Key: " + key + " Value: " + value.toString());
-            }
-        }
+//        Bundle bundle = getIntent().getExtras();
+//
+//        if (bundle != null) {
+//            for (String key : bundle.keySet()) {
+//                Object value = bundle.get(key);
+//                Log.d(TAG, "Key: " + key + " Value: " + value.toString());
+//            }
+//        }
         //displayTuto(); // one second delay
 
     }
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity implements AHBottomNavigatio
             args.putString(Constants.CLUB_NAME, clubName);
             args.putString(Constants.DJ_NAME, djName);
             args.putString(Constants.MUSIC, music);
+            args.putString(Constants.EVENT_DATE, eventDate);
             clubsListFragment.setArguments(args);
 
 

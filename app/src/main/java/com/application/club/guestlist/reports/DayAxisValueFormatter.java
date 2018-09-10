@@ -22,6 +22,9 @@ public class DayAxisValueFormatter implements IAxisValueFormatter
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
+        if(value < 0){
+            value =0;
+        }
         return mDays[(int)value];
     }
 

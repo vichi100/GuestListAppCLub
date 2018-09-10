@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -52,6 +53,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.concurrent.Future;
 
+
+import me.shaohui.advancedluban.Luban;
+
 import static android.app.Activity.RESULT_OK;
 
 
@@ -95,6 +99,9 @@ public class UploadFragment extends Fragment implements DatePickerDialog.OnDateS
 
         //socketOperator = new SocketOperator(this);
         screenWight = getScreenWight();
+
+        long time= System.currentTimeMillis();
+        final String timeStr = Long.toString(time);
 
         final Calendar cal = Calendar.getInstance();
         cal.get(Calendar.YEAR);
@@ -195,6 +202,12 @@ public class UploadFragment extends Fragment implements DatePickerDialog.OnDateS
                     return;
                 }
                 File f = new File(path);
+                    Luban.compress(context, f)
+                            .setMaxSize(500)                // limit the final image size（unit：Kb）
+                            .setMaxHeight(1920)             // limit image height
+                            .setMaxWidth(1080)              // limit image width
+                            .putGear(Luban.CUSTOM_GEAR)     // use CUSTOM GEAR compression mode
+                            .asObservable();
                 if (dateTextView.getText().toString().matches("")) {
                     Toast toast = Toast.makeText(getActivity(), "Event Date is empty", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -204,7 +217,7 @@ public class UploadFragment extends Fragment implements DatePickerDialog.OnDateS
                 String changedDateFormat = UtillMethods.changeDateFormate(dateTextView.getText().toString());
 
                 Future uploading = Ion.with(UploadFragment.this)
-                        .load("http://192.168.43.64:9090/upload?clubId="+clubId+"&eventDate="+changedDateFormat)
+                        .load("http://199.180.133.121:9090/upload?clubId="+clubId+"&eventDate="+changedDateFormat+"&time="+timeStr)
                         .progressBar(progressBar)
                         .setMultipartFile("image", f)
                         .asString()
@@ -259,7 +272,9 @@ public class UploadFragment extends Fragment implements DatePickerDialog.OnDateS
                     eventDataJobj.put(Constants.EVENTNAME, eventName);
                     eventDataJobj.put(Constants.DJ_NAME, djName);
                     eventDataJobj.put(Constants.MUSIC, music);
-                    //eventDataJobj.put(Constants.IMAGE_URL, music);
+                    String eventDate = changedDateFormat.replaceAll("/","");
+                    String eventImageURL = Constants.HTTP_UPLOAD_URL+clubId+"/event/"+clubId+"-"+eventDate+"-"+timeStr+".png";
+                    eventDataJobj.put(Constants.IMAGE_URL, eventImageURL);
                     //final SimpleDateFormat simpleDateformat = new SimpleDateFormat("dd/MMM/yyyy");
                     eventDataJobj.put(Constants.EVENT_DATE, changedDateFormat);
                     socketOperator.sendMessage(eventDataJobj);
@@ -324,8 +339,8 @@ public class UploadFragment extends Fragment implements DatePickerDialog.OnDateS
                     Glide.with(getActivity())
                             .load(data.getData())
                             .override(screenWight, screenWight * 9 / 16)
-                            .centerCrop()
-                            //.placeholder(R.drawable.circular_progress_bar)
+                            //.centerCrop()
+                            .placeholder(R.drawable.circular_progress_bar)
                             .into(img);
                     upload.setVisibility(View.VISIBLE);
 

@@ -16,6 +16,8 @@ android:layout_height="match_parent">
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:text="MON"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/button_selector_effect"
         android:clickable="true"
         android:textColor="@color/white"/>
     <Button
@@ -23,6 +25,8 @@ android:layout_height="match_parent">
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:text="TUE"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/button_selector_effect"
         android:clickable="true"
         android:textColor="@color/white"/>
     <Button
@@ -30,29 +34,35 @@ android:layout_height="match_parent">
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:text="WED"
+        android:focusableInTouchMode="true"
+        android:background="@drawable/button_selector_effect"
         android:clickable="true"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/Thu"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:focusableInTouchMode="true"
         android:text="THU"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/Fri"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:focusableInTouchMode="true"
         android:text="FRI"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/Sat"
         android:layout_width="45dp"
         android:layout_height="45dp"
+        android:focusableInTouchMode="true"
         android:text="SAT"
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/Sun"
         android:layout_width="45dp"
+        android:focusableInTouchMode="true"
         android:layout_height="45dp"
         android:text="SUN"
         android:textColor="@color/white"/>

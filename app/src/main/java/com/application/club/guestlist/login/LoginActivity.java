@@ -89,13 +89,14 @@ public class LoginActivity extends  AppCompatActivity
         SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
 
         if (settings.getString("logged", "").toString().equals("logged")) {
+            String userId = settings.getString("userId","");
             String clubname = settings.getString("clubname","");
             String clubid = settings.getString("clubid","");
             String password = settings.getString("password","");
             try{
                 JSONObject customerDetails = new JSONObject();
                 customerDetails.put("action", "clubLogindDataAndValidation");
-                customerDetails.put(Constants.CLUB_NAME, clubname);
+                customerDetails.put(Constants.USER_ID, userId);
                 customerDetails.put(Constants.CLUB_ID, clubid);
                 customerDetails.put(Constants.PASSWORD, password);
                 customerDetails.put(Constants.EVENT_DATE, eventDate);
@@ -118,15 +119,19 @@ public class LoginActivity extends  AppCompatActivity
                             MainActivity.class);
                     //SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
                     SharedPreferences.Editor editor = settings.edit();
-                    editor.putString(Constants.DJ_NAME, eventDetailsObj.getString(Constants.DJ_NAME));
-                    editor.putString(Constants.MUSIC, eventDetailsObj.getString(Constants.MUSIC));
+                    editor.putString(Constants.CLUB_NAME, eventDetailsObj.getString(Constants.CLUB_NAME));
+                    if(eventDetailsObj.getString(Constants.IF_EVENT_EXIST).equalsIgnoreCase("yes")){
+                        editor.putString(Constants.DJ_NAME, eventDetailsObj.getString(Constants.DJ_NAME));
+                        editor.putString(Constants.MUSIC, eventDetailsObj.getString(Constants.MUSIC));
+                    }
+
                     editor.commit();
 
 //                    intent.putExtra(Constants.CLUB_NAME, eventDetailsObj.getString(Constants.CLUB_NAME));
 //                    intent.putExtra(Constants.CLUB_ID, clubid);
 //                    intent.putExtra(Constants.DJ_NAME, eventDetailsObj.getString(Constants.DJ_NAME));
 //                    intent.putExtra(Constants.MUSIC, eventDetailsObj.getString(Constants.MUSIC));
-//                    intent.putExtra(Constants.EVENT_DATE, eventDate);
+                    intent.putExtra(Constants.EVENT_DATE, eventDate);
                     startActivity(intent);
 
                 }catch (Exception ex){
@@ -148,8 +153,8 @@ public class LoginActivity extends  AppCompatActivity
         button.setOnClickListener(new OnClickListener() {
             public void onClick(View arg0) {
 
-                EditText clubnametv = (EditText) findViewById(R.id.cname);
-                final String clubname = clubnametv.getText().toString();
+                EditText userIdtv = (EditText) findViewById(R.id.cname);
+                final String userId = userIdtv.getText().toString();
                 EditText clubidtv = (EditText) findViewById(R.id.clubid);
                 final String clubid = clubidtv.getText().toString();
                 final EditText passwordtv = (EditText) findViewById(R.id.cmobile);//password
@@ -157,7 +162,7 @@ public class LoginActivity extends  AppCompatActivity
                 EditText confirmPasswordtv = (EditText) findViewById(R.id.ccmobile);//confirm password
                 final String confirmPassword = confirmPasswordtv.getText().toString();
 
-                if((null != clubname && !clubname.trim().equalsIgnoreCase("")
+                if((null != userId && !userId.trim().equalsIgnoreCase("")
                         && null != clubid && !clubid.trim().equalsIgnoreCase(""))) {
 
                     if (null != password && password.trim().length() >= 1) {
@@ -175,7 +180,7 @@ public class LoginActivity extends  AppCompatActivity
 
                                 JSONObject customerDetails = new JSONObject();
                                 customerDetails.put("action", "clubLogindDataAndValidation");
-                                customerDetails.put(Constants.CLUB_NAME, clubname);
+                                customerDetails.put(Constants.USER_ID, userId);
                                 customerDetails.put(Constants.CLUB_ID, clubid);
                                 customerDetails.put(Constants.PASSWORD, confirmPassword);
                                 customerDetails.put(Constants.EVENT_DATE, eventDate);
@@ -188,26 +193,30 @@ public class LoginActivity extends  AppCompatActivity
 
 
 
-                            }catch (Exception ex){
-                                ex.printStackTrace();
-                            }
+
                             if(startMainActivityFlag){
                                 SharedPreferences settings = getSharedPreferences(Constants.PREFS_NAME, 0);
                                 SharedPreferences.Editor editor = settings.edit();
                                 editor.putString("logged", "logged");
-                                editor.putString("clubname", clubname);
+                                editor.putString("userId", userId);
                                 editor.putString("clubid", clubid);
                                 editor.putString("password", confirmPassword);
+                                editor.putString("clubname", eventDetailsObj.getString(Constants.CLUB_NAME));
                                 editor.commit();
 
                                 Intent intent = new Intent(LoginActivity.this,
                                         MainActivity.class);
+                                intent.putExtra(Constants.EVENT_DATE, eventDate);
                                 startActivity(intent);
 
 
                             }else{
                                 Toast.makeText(LoginActivity.this, "Network is not working or very slow !", Toast.LENGTH_LONG).show();
 
+                            }
+
+                            }catch (Exception ex){
+                                ex.printStackTrace();
                             }
 
 

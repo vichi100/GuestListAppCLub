@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
     private Context context;
     String tableID;
     String layoutURL;
+    String evntDate;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
         final String imageURL = intent.getStringExtra(Constants.IMAGE_URL);
         final String tableDiscount = intent.getStringExtra(Constants.TABLE_DISCOUNT);
         final String ticketDetailsJsonArryStr = intent.getStringExtra(Constants.TICKET_DETAILS);
+        evntDate = intent.getStringExtra(Constants.EVENTDATE);
         JSONArray ticketDetailsListJsonArray = null;
 
         final TextView tv = findViewById(R.id.popup);
@@ -120,7 +123,7 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
                     String eventDate = tableDetailJObj.getString(Constants.EVENT_DATE);
                     String booked = tableDetailJObj.getString(Constants.ISBOOKED);
 
-                    layoutURL = "http://172.20.10.10"+tableDetailJObj.get(Constants.LAYOUT_URL);//imagemap/demo_usa.html";
+                    layoutURL = tableDetailJObj.getString(Constants.LAYOUT_URL);
 
                     TableDetailsItem tr = new TableDetailsItem();
                     tr.setClubid(clubidx);
@@ -151,9 +154,9 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
         web.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         String eventdate = date.replaceAll("/", "");
         String destFileName = clubidx+"-"+eventdate+".html";
-        web.loadUrl(Constants.HTTP_LAYOUT_HOST+Constants.TABLE_LAYOUT_URL+destFileName);
+        //web.loadUrl(Constants.HTTP_LAYOUT_HOST+Constants.TABLE_LAYOUT_URL+destFileName);
         //web.loadUrl("http://172.20.10.10/imagemap/t3.html");
-        //web.loadUrl("http://172.20.10.10/imagemap/layout.html");
+        web.loadUrl(layoutURL);
         web.setWebViewClient(new WebViewClient()
              {
                  public void onPageFinished(WebView view, String url)
@@ -167,7 +170,9 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
                          if(!tdi.getBooked().equalsIgnoreCase("booked")){
                              popupWindowHelper.showFromBottom(tv);
                          }else if(tdi.getBooked().equalsIgnoreCase("booked")){
-                             Toast.makeText(TableSelectionWebClientActivity.this, "Not Available !",	Toast.LENGTH_SHORT).show();
+                             Toast toast =  Toast.makeText(TableSelectionWebClientActivity.this, "Not Available !",	Toast.LENGTH_SHORT);
+                             toast.setGravity(Gravity.CENTER, 0, 0);
+                             toast.show();
                          }
 
                          TextView tableNumber = (TextView) popView.findViewById(R.id.tableNumberValue);
@@ -222,6 +227,7 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
     {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && web.canGoBack()) {
             Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(Constants.EVENT_DATE, evntDate);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
 
@@ -234,6 +240,7 @@ public class TableSelectionWebClientActivity extends AppCompatActivity implement
     @Override
     public boolean onSupportNavigateUp(){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(Constants.EVENT_DATE, evntDate);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
 

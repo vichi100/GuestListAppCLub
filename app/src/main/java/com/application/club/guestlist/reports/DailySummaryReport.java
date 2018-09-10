@@ -147,13 +147,25 @@ public class DailySummaryReport extends Fragment implements OnChartValueSelected
 
         final Button monb = getActivity().findViewById(R.id.mon);
         monb.setBackgroundColor(Color.rgb(217, 80, 138));
+        monb.findFocus();
+        monb.setTextColor(Color.BLACK);
         monb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 dateTv.setText(simpleDateformat.format(dateList.get(0)));
                 monb.findFocus();
+                monb.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 0);
                setData(4,100);
+            }
+        });
+
+        monb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    monb.setTextColor(Color.WHITE);
+                }
             }
         });
 
@@ -164,63 +176,128 @@ public class DailySummaryReport extends Fragment implements OnChartValueSelected
             public void onClick(View view) {
                 dateTv.setText(simpleDateformat.format(dateList.get(1)));
                 tueb.findFocus();
+                tueb.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 1);
                 setData(4,100);
             }
         });
 
-        Button wedb = getActivity().findViewById(R.id.Wed);
+        tueb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    tueb.setTextColor(Color.WHITE);
+                }
+            }
+        });
+
+        final Button wedb = getActivity().findViewById(R.id.Wed);
         wedb.setBackgroundColor(Color.rgb(185, 206, 172));
         wedb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                wedb.findFocus();
                 dateTv.setText(simpleDateformat.format(dateList.get(2)));
+                wedb.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 2);
                 setData(4,100);
             }
         });
 
-        Button thub = getActivity().findViewById(R.id.Thu);
+        wedb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    wedb.setTextColor(Color.WHITE);
+                }
+            }
+        });
+
+        final Button thub = getActivity().findViewById(R.id.Thu);
         thub.setBackgroundColor(Color.rgb(106, 167, 134));
         thub.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                thub.findFocus();
                 dateTv.setText(simpleDateformat.format(dateList.get(3)));
+                thub.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 3);
                 setData(4,100);
             }
         });
 
-        Button frib = getActivity().findViewById(R.id.Fri);
+        thub.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    thub.setTextColor(Color.WHITE);
+                }
+            }
+        });
+
+        final Button frib = getActivity().findViewById(R.id.Fri);
         frib.setBackgroundColor(Color.rgb(53, 194, 209));
         frib.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                frib.findFocus();
                 dateTv.setText(simpleDateformat.format(dateList.get(4)));
+                frib.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 4);
                 setData(4,100);
             }
         });
 
-        Button satb = getActivity().findViewById(R.id.Sat);
+        frib.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    frib.setTextColor(Color.WHITE);
+                }
+            }
+        });
+
+
+
+        final Button satb = getActivity().findViewById(R.id.Sat);
         satb.setBackgroundColor(Color.rgb(200, 138, 255));
         satb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                satb.findFocus();
                 dateTv.setText(simpleDateformat.format(dateList.get(5)));
+                satb.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 5);
                 setData(4,100);
             }
         });
+        satb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    satb.setTextColor(Color.WHITE);
+                }
+            }
+        });
 
-        Button sunb = getActivity().findViewById(R.id.Sun);
+        final Button sunb = getActivity().findViewById(R.id.Sun);
         sunb.setBackgroundColor(Color.rgb(134, 172, 254));
         sunb.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                sunb.findFocus();
                 dateTv.setText(simpleDateformat.format(dateList.get(6)));
+                sunb.setTextColor(Color.BLACK);
                 sendDataRequest(dateList, 6);
                 setData(4,100);
+            }
+        });
+        sunb.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    sunb.setTextColor(Color.WHITE);
+                }
             }
         });
 

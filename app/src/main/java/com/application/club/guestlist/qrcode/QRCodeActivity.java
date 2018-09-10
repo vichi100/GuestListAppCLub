@@ -37,6 +37,7 @@ import java.util.Map;
 import static com.application.club.guestlist.utils.Constants.BOOKING_TYPE;
 import static com.application.club.guestlist.utils.Constants.CLUB_ID;
 import static com.application.club.guestlist.utils.Constants.CLUB_NAME;
+import static com.application.club.guestlist.utils.Constants.DETAILS;
 import static com.application.club.guestlist.utils.Constants.EVENTDATE;
 import static com.application.club.guestlist.utils.Constants.QRNUMBER;
 import static com.application.club.guestlist.utils.Constants.REMAINING_AMOUNT;
@@ -74,6 +75,7 @@ public class QRCodeActivity extends AppCompatActivity {
         final String qrNumber  = intent.getStringExtra(QRNUMBER);
         String qrNumberStr = UtillMethods.splitString(qrNumber);
         final String remainingAmt  = intent.getStringExtra(REMAINING_AMOUNT);
+        final String allDetails = intent.getStringExtra(DETAILS);
 
         String quantityViewDefaultstag = null;
         String quantityViewDefaultCouple = null;
@@ -152,7 +154,7 @@ public class QRCodeActivity extends AppCompatActivity {
             final String size = intent.getStringExtra(Constants.TABLE_SIZE);
             final String details = intent.getStringExtra(Constants.DETAILS);
             String entry = details;//"Table For "+size+ " with full cover of Rs"+cost;
-            entrytv.setText(entry);
+            entrytv.setText(allDetails);
 
             remainingAmtTv.setText("Rs "+remainingAmt+" Need to Pay At Club");
 

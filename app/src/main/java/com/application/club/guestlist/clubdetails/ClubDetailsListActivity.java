@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.application.club.guestlist.MainActivity;
 import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.squareup.picasso.Picasso;
 import com.application.club.guestlist.R;
@@ -170,6 +172,20 @@ public class ClubDetailsListActivity extends AppCompatActivity implements EventL
 		// Attach the adapter to a ListView
 		ListView listView = (ListView) this.findViewById(R.id.lvUsers);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,
+									int position, long id) {
+
+				Toast.makeText(ClubDetailsListActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+				Intent intent = new Intent(ClubDetailsListActivity.this, MainActivity.class);
+				String eventDate = clubEventDetailsItemList.get(position).getDate();
+				intent.putExtra(Constants.EVENT_DATE, eventDate);
+				startActivity(intent);
+
+			}
+
+		});
 	}
 
 	public void eventReceived(String message){

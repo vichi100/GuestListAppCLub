@@ -4,15 +4,19 @@
     android:layout_height="fill_parent"
     >
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <TextView
+        android:id="@+id/noevent"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No Event For Today! Use UPLOAD If You Wanna Create One."
+        android:visibility="invisible"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        />
+
+
+
 
     <ImageView
         android:id="@+id/mainImage"
@@ -55,9 +59,11 @@
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/clubeventDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll"
+        android:visibility="invisible"
         android:background="#2d2b2b">
 
         <LinearLayout

@@ -95,48 +95,48 @@ public class ClubsDetailListAdapter extends ArrayAdapter<ClubEventsDetailsItem> 
          }
 
 
-         guestList.setOnClickListener(new OnClickListener() {
-             @Override
-             public void onClick(View v) {
-
-                 Intent intent = new Intent(mContext, BookGuestListActivity.class);
-                 intent.putExtra(Constants.CLUB_ID, clubId);
-                 intent.putExtra(Constants.CLUB_NAME, clubName);
-                 intent.putExtra(Constants.EVENTDATE, eventdate);
-                 intent.putExtra(Constants.IMAGE_URL, imgURL);
-                 intent.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
-                 mContext.startActivity(intent);
-
-             }
-         });
-
-         pass.setOnClickListener(new OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(mContext, BookPassActivity.class);
-                 intent.putExtra(Constants.CLUB_ID, clubId);
-                 intent.putExtra(Constants.CLUB_NAME, clubName);
-                 intent.putExtra(Constants.EVENTDATE, eventdate);
-                 intent.putExtra(Constants.IMAGE_URL, imgURL);
-                 intent.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
-                 mContext.startActivity(intent);
-
-             }
-         });
-
-         table.setOnClickListener(new OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 Intent intent = new Intent(mContext, TableBookingActivity.class);
-                 intent.putExtra(Constants.CLUB_ID, clubId);
-                 intent.putExtra(Constants.CLUB_NAME, clubName);
-                 intent.putExtra(Constants.EVENTDATE, eventdate);
-                 intent.putExtra(Constants.IMAGE_URL, imgURL);
-                 intent.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
-                 mContext.startActivity(intent);
-
-             }
-         });
+//         guestList.setOnClickListener(new OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//
+//                 Intent intent = new Intent(mContext, BookGuestListActivity.class);
+//                 intent.putExtra(Constants.CLUB_ID, clubId);
+//                 intent.putExtra(Constants.CLUB_NAME, clubName);
+//                 intent.putExtra(Constants.EVENTDATE, eventdate);
+//                 intent.putExtra(Constants.IMAGE_URL, imgURL);
+//                 intent.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
+//                 mContext.startActivity(intent);
+//
+//             }
+//         });
+//
+//         pass.setOnClickListener(new OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//                 Intent intent = new Intent(mContext, BookPassActivity.class);
+//                 intent.putExtra(Constants.CLUB_ID, clubId);
+//                 intent.putExtra(Constants.CLUB_NAME, clubName);
+//                 intent.putExtra(Constants.EVENTDATE, eventdate);
+//                 intent.putExtra(Constants.IMAGE_URL, imgURL);
+//                 intent.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
+//                 mContext.startActivity(intent);
+//
+//             }
+//         });
+//
+//         table.setOnClickListener(new OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//                 Intent intent = new Intent(mContext, TableBookingActivity.class);
+//                 intent.putExtra(Constants.CLUB_ID, clubId);
+//                 intent.putExtra(Constants.CLUB_NAME, clubName);
+//                 intent.putExtra(Constants.EVENTDATE, eventdate);
+//                 intent.putExtra(Constants.IMAGE_URL, imgURL);
+//                 intent.putExtra(Constants.TICKET_DETAILS, ticketDetailsListJsonArray.toString());
+//                 mContext.startActivity(intent);
+//
+//             }
+//         });
 
         // Return the completed view to render on screen
 

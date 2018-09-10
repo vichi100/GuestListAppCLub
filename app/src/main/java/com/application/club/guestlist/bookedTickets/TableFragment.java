@@ -61,7 +61,7 @@ public class TableFragment extends ListFragment implements EventListener {
             String clubid = settings.getString("clubid","");
             String eventDate = UtillMethods.getTodayDate();
             JSONObject getbookedTicketFromDatabase = new JSONObject();
-            getbookedTicketFromDatabase.put("action", "getbookedTicketFromDatabase");
+            getbookedTicketFromDatabase.put("action", "getbookedTicketFromDatabaseForPro");
             getbookedTicketFromDatabase.put(Constants.EVENT_DATE, eventDate);
             getbookedTicketFromDatabase.put(Constants.CUSTOMERID, clubid );
 

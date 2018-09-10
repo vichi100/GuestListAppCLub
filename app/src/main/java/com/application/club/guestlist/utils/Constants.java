@@ -16,7 +16,12 @@ public class Constants {
 
     public static String HTTP_URL = "http://199.180.133.121:3030";
     public static String HTTP_VIDEO_URL = "http://199.180.133.121:3000";
-    public static String HTTP_LAYOUT_HOST = "http://192.168.43.64";
+    public static String HTTP_UPLOAD_URL = "/images/club/";
+    public static String HTTP_LAYOUT_HOST = "http://192.168.0.9";
+
+    public static String USER_ID = "userId";
+
+    public static String IF_EVENT_EXIST= "eventexist";
 
     public static String CLUB_ID = "clubid";
     public static String CLUB_NAME = "clubname";

@@ -20,6 +20,7 @@ import android.support.v4.app.ListFragment;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,6 +63,7 @@ import com.application.club.guestlist.utils.UtillMethods;
 import com.application.club.guestlist.videoMode.Feed;
 import com.application.club.guestlist.videoMode.Video;
 import com.application.club.guestlist.videoUI.CenterLayoutManager;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -95,9 +98,18 @@ public class ClubsListFragment extends Fragment implements
     String passdiscount;
     String tablediscount;
     String location;
+    boolean isEventExist = false;
+
+    private static int screenWight = 0;
 
     private ArrayList<ClubEventsDetailsItem> clubEventDetailsItemList;
     private ArrayList<TicketDetailsItem> ticketDetailsItemList;
+
+    private int getScreenWight() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics.widthPixels;
+    }
 
     @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -114,20 +126,24 @@ public class ClubsListFragment extends Fragment implements
 		super.onActivityCreated(savedInstanceState);
         //getActivity().getSupportActionBar().setTitle("City");
 
+        screenWight = getScreenWight();
+
         clubId = getArguments().getString(Constants.CLUB_ID);
         clubname = getArguments().getString(Constants.CLUB_NAME);
         djname = getArguments().getString(Constants.DJ_NAME);
         music = getArguments().getString(Constants.MUSIC);
 
 
-        eventDate  = UtillMethods.getTodayDate();
+
+
+        eventDate  = getArguments().getString(Constants.EVENT_DATE);
 //        clubId  = "99999";
 //        clubname  = "True Tramm Trunk";//intent.getStringExtra(Constants.CLUB_NAME);
 //
 //        djname = "vicky";//intent.getStringExtra(Constants.DJ_NAME);
 //        music = "hiphop";//ntent.getStringExtra(Constants.MUSIC););
 
-        imageURL = "/images/club/truetrammtrunk/truetrammtrunk.png";//intent.getStringExtra(Constants.IMAGE_URL);UNT);
+        //imageURL = "/images/club/truetrammtrunk/truetrammtrunk.png";//intent.getStringExtra(Constants.IMAGE_URL);UNT);
 
         String day = UtillMethods.getDayFromDate(eventDate);
 
@@ -140,7 +156,23 @@ public class ClubsListFragment extends Fragment implements
         TextView clubNametv = (TextView) getActivity().findViewById(R.id.club);
         clubNametv.setText(clubname);
 
+        ImageView mainImagetv = (ImageView) getActivity().findViewById(R.id.mainImage);
+
         populateEventsListForClub();
+        if(!isEventExist){
+            Glide.with(getActivity())
+                    .load(R.drawable.noevent)
+                    .override(screenWight, screenWight * 9 / 16)
+                    .centerCrop()
+                    //.placeholder(R.drawable.circular_progress_bar)
+                    .into(mainImagetv);
+            return;
+        }
+
+//        LinearLayout ll = (LinearLayout) getActivity().findViewById(R.id.ll);
+//        ll.setVisibility(View.VISIBLE);
+        RelativeLayout rr = (RelativeLayout) getActivity().findViewById(R.id.clubeventDetails);
+        rr.setVisibility(View.VISIBLE);
 
         TextView djtv = (TextView) getActivity().findViewById(R.id.dj);
         djtv.setText(djname);
@@ -161,9 +193,16 @@ public class ClubsListFragment extends Fragment implements
 //        }
 
 
-        ImageView mainImagetv = (ImageView) getActivity().findViewById(R.id.mainImage);
 
-        Picasso.with(getActivity().getApplicationContext()).load(Constants.HTTP_URL+imageURL).into(mainImagetv);
+
+        Glide.with(getActivity())
+                .load(Constants.HTTP_URL+imageURL)
+                .override(screenWight, screenWight * 9 / 16)
+                .centerCrop()
+                //.placeholder(R.drawable.circular_progress_bar)
+                .into(mainImagetv);
+
+        //Picasso.with(getActivity().getApplicationContext()).load(Constants.HTTP_URL+imageURL).into(mainImagetv);
 
 //        TextView timetv = (TextView) findViewById(R.id.time);
 //        timetv.setText("TIME    "+startTime);
@@ -251,6 +290,9 @@ public class ClubsListFragment extends Fragment implements
             if(clubsEventListJsonArray != null){
 
                 for(int i=0; i < clubsEventListJsonArray.length(); i++){
+
+                    isEventExist = true;
+
                     ClubEventsDetailsItem clubEventsDetailsItemObj = new ClubEventsDetailsItem();
                     JSONObject clubEventJObj = clubsEventListJsonArray.getJSONObject(i);
 
@@ -261,8 +303,9 @@ public class ClubsListFragment extends Fragment implements
                     String clubname = clubEventJObj.getString(Constants.CLUB_NAME);
                     djname = clubEventJObj.getString(Constants.DJ_NAME);
                     music = clubEventJObj.getString(Constants.MUSIC_TYPE);
+                    imageURL = clubEventJObj.getString(Constants.IMAGE_URL);
                     String date = clubEventJObj.getString(Constants.EVENTDATE);
-                    String imageURL = clubEventJObj.getString(Constants.IMAGE_URL);
+                    //String imageURL = clubEventJObj.getString(Constants.IMAGE_URL);
 
                     clubEventsDetailsItemObj.setClubname(clubname);
                     clubEventsDetailsItemObj.setClubid(clubid);
@@ -358,6 +401,40 @@ public class ClubsListFragment extends Fragment implements
 
 
 
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu, menu);
+        //MenuItem searchItem = menu.findItem(R.id.action_search);
+        //SearchView searchView = (SearchView) searchItem.getActionView();
+        //searchView.setOnQueryTextListener(this);
+        //searchView.setQueryHint("Club Name or Location");
+
+//        super.onCreateOptionsMenu(menu, inflater);
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+//            case R.id.action_search:
+//                newGame();
+//                return true;
+            case R.id.action_location:
+//                Intent intent = new Intent(getActivity(), ChangeLocationActivity.class);
+//                startActivity(intent);
+                Intent intent = new Intent(getActivity(), ClubDetailsListActivity.class);
+                intent.putExtra(Constants.CLUB_ID, clubId);
+                intent.putExtra(Constants.CLUB_NAME, clubname);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

@@ -1,3 +1,16 @@
+start java server:
+
+nohup java -jar /root/home/guestlistserver.jar &
+
+start video server :
+
+nohup node /root/home/videostream/servervideo.js &
+
+Start image server:
+
+nohup node /root/home/guestlistnodeserver.js &
+
+###############################
 paypal
 vichi100@gmail.com
 meriMaa29071979#
@@ -21,7 +34,7 @@ to  create signed apk password is : vichi123
 godaddy
 
 183782167
-meriMaa29071979#
+Vichi29071979#
 
 Current PIN
 0099
@@ -45,10 +58,14 @@ vichis-MacBook-Air:~ root# apachectl restart
 
 sudo su -
 export PATH=/usr/local/mysql/bin:$PATH
+mysql -u root -p
 
 location usr/local/mysql
 
 sudo su -
+
+
+
 
 appache dir :
 
@@ -67,6 +84,14 @@ DocumentRoot "/Library/WebServer/Documents"
 
 
 scp root@199.180.133.121:/var/www/guestlist/imagemap/layoutimage /Users/vichi/
+
+scp root@199.180.133.121:/root/easyadnetwork/EasyAdNetwork-Complete/* /Users/vichi/EasyAdNetwork
+
+cp: /root/easyadnetwork/EasyAdNetwork-Complete/customer-wise-pix: not a regular file
+vichis-MacBook-Air:~ root# scp -r root@199.180.133.121:/root/easyadnetwork/EasyAdNetwork-Complete/* /Users/vichi/EasyAdNetwork
+root@199.180.133.121's password:
+.DS_Store                                                                                                                                                               100% 6148    14.4KB/s   00:00
+new  30 - Copy.html
 
 
 
@@ -487,35 +512,63 @@ update offers set date = '23/Jul/2018' and starttime =  '23/Jul/2018 12:00:00' a
 update offers set date = '23/Jul/2018' where clubid = '100009';
 
 
-CREATE TABLE tablesdata (clubid VARCHAR(50), clubname VARCHAR(50), tableid VARCHAR(50), tablenumber VARCHAR(5), details VARCHAR(300), tabletype VARCHAR(50),
-size VARCHAR(10), cost VARCHAR(50), coords VARCHAR(100), layoutURL VARCHAR(500),
+CREATE TABLE tablesdata (clubid VARCHAR(50), clubname VARCHAR(50), tableid VARCHAR(50), tablenumber VARCHAR(5), details VARCHAR(300),
+tabletype VARCHAR(50), size VARCHAR(10), cost VARCHAR(50), coords VARCHAR(100), layoutURL VARCHAR(500),
 eventdate VARCHAR(50), booked VARCHAR(20));
 
 
 INSERT INTO tablesdata ( clubid, clubname,tableid, tablenumber, details, tabletype, size, cost, coords, layoutURL, eventdate, booked)
 VALUES
-( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '26/Aug/2018', 'booked'),
-( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '26/Aug/2018', 'available'),
-( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '26/Aug/2018', 'booked'),
-( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '26/Aug/2018', 'available'),
-( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '26/Aug/2018', 'available');
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '10/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '10/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '10/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '10/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '10/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '11/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '11/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '11/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '11/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '11/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '12/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '12/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '12/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '12/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '12/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '13/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '13/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '13/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '13/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '13/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '14/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '14/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '14/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '14/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '14/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '15/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '15/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '15/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '15/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/99999.html', '16/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/99999.html', '16/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/99999.html', '16/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/99999.html', '16/Sep/2018', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/99999.html', '16/Sep/2018', 'available');
 
 
 
 
+CREATE TABLE defaulttablesdata (clubid VARCHAR(50), clubname VARCHAR(50), tableid VARCHAR(50), tablenumber VARCHAR(5), details VARCHAR(300),
+tabletype VARCHAR(50), size VARCHAR(10), cost VARCHAR(50), coords VARCHAR(100), layoutURL VARCHAR(500),
+eventdate VARCHAR(50), booked VARCHAR(20));
 
+INSERT INTO defaulttablesdata ( clubid, clubname,tableid, tablenumber, details, tabletype, size, cost, coords, layoutURL, eventdate, booked)
+VALUES
+( '99999' , 'True Tramn Trunk' , 'T3-99999-01', '11', 'personal service', 'NORMAL', '7', '30000', '442,167,411,136', '/imagemap/layouthtml/99999-01Jan1900.html', '01/Jan/1900', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-02', '10', 'personal service', 'NORMAL', '4', '15000', '409,227,444,261', '/imagemap/layouthtml/99999-01Jan1900', '01/Jan/1900', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '13', 'personal service', 'NORMAL', '10', '50000', '128,171,102,136', '/imagemap/layouthtml/99999-01Jan1900', '01/Jan/1900', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '12', 'personal service', 'NORMAL', '5', '15000', '102,235,129,276', '/imagemap/layouthtml/99999-01Jan1900', '01/Jan/1900', 'available'),
+( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '10', '50000', '498,95,563,211', '/imagemap/layouthtml/99999-01Jan1900', '01/Jan/1900', 'available');
 
-( '99999' , 'True Tramn Trunk' , 'T3-99999-03', '12', 'personal service', 'VIP', '4', '20000', '462', '287', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
-( '99999' , 'True Tramn Trunk' , 'T3-99999-04', '13', 'personal service', 'VIP', '10', '50000', '415', '90', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no'),
-( '99999' , 'True Tramn Trunk' , 'T3-99999-05', '14', 'personal service', 'VIP', '2', '5000', '151', '193', '50', '50', '/images/club/truetrammtrunk/tablelayout/layout.png', '23/Jul/2018', 'no');
-
-
-
-172.20.10.8
-
-http://localhost/
-
-http://172.20.10.8/
 
 
 <php>
@@ -540,6 +593,10 @@ CREATE TABLE clubdatalogin (clubname VARCHAR(50),
  INSERT INTO bookingdetails ( cutomername, mobile,  customerId, clubname, clubid, QRnumber,
  tickettype, eventDate, cost, costafterdiscount, paidamount, remainingamount, discount, ticketDetails, bookingDate, bookingtime)
  VALUES  ( 't3', '99999' , '99999', 'True Tramm Trunk', '99999' , '1534935641374', '' ,'' , '' , '', '', '', '', '', '', '');
+
+
+
+
 
 
 ############################
